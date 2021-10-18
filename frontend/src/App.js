@@ -17,13 +17,13 @@ function App() {
     const dataObject = {
         username: user.name
     };
-    axios.post('http://127.0.0.1:5000/user', dataObject)
+    axios.post('http://0.0.0.0:5000/user', dataObject)
         .then((res) => {
       console.log(res.data)
       }).catch(error => {
       console.log(error)
       });
-    axios.post('http://127.0.0.1:3001/send-user', dataObject)
+    axios.post('http://0.0.0.0:3001/send-user', dataObject)
       .then((res) => {
         console.log(res.data)
       }).catch(error => {
