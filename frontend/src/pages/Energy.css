@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+
+    /* .container-energy  {
+        background-color: #4d4d4d;
+        top: 0;
+        width: 194vh;
+        height: 100vh;
+        display: flex;
+        position: fixed;
+        left: 0px;
+        text-align: center;
+    }    */
+
+
+}

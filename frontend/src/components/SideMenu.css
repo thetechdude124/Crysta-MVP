@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .side-menu {
+        background-color: #f9fafb;
+        width: 16rem;
+        height: 100vh;
+        display: flex;
+        position: fixed;
+        justify-content: center;
+        z-index: 9999;
+        top: 0;
+        left: -100%; 
+        transition: 850ms;
+        border-bottom-right-radius: 1.5rem;
+    }
+    .side-menu.active {
+        left: 0;
+        transition: 350ms;
+    }
+    .side-menu-toggle {
+        background-color: #f9fafb;
+        width: 100%;
+        z-index: 9999;
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "crysta_mvp",
+  "version": "1.0.0",
+  "description": "Crysta's MVP",
+  "main": "index.js",
+  "dependencies": {
+    "@auth0/auth0-react": "^1.8.0",
+    "@babel/core": "^7.13.0",
+    "@craco/craco": "^6.3.0",
+    "axios": "^0.21.4",
+    "body-parser": "^1.19.0",
+    "chart.js": "^3.5.1",
+    "concurrently": "^6.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.2",
+    "mongoose": "^6.0.8",
+    "morgan": "^1.10.0",
+    "react": "^17.0.2",
+    "react-alert": "^7.0.3",
+    "react-chartjs-2": "^3.0.4",
+    "react-dom": "^17.0.2",
+    "react-google-login": "^5.2.2",
+    "react-icons": "^4.2.0",
+    "react-router-dom": "^5.2.1",
+    "react-scripts": "^4.0.3",
+    "web-vitals": "^1.1.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.8",
+    "postcss": "^7.0.39",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16"
+  },
+  "scripts": {
+    "start": "concurrently \"cd backend && node server.js\" \"cd frontend && npm start\""
+  },
+  "author": "Aditya Dewan",
+  "license": "ISC"
+}
