@@ -33,7 +33,7 @@ function App() {
 
   return (
       <Router>
-        <Route path='/' exact component={Login}/>
+        <Route path='https://crysta-app.herokuapp.com/' exact component={Login}/>
         <Route path= '/Login' component={Login}/>
         <SideMenu/>
         <Switch>
