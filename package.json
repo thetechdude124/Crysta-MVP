@@ -32,7 +32,8 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16"
   },
   "scripts": {
-    "start": "concurrently \"cd backend && node server.js\" \"cd frontend && npm start\""
+    "start": "cd backend && node server.js",
+    "heroku-postbuild": "cd frontend && npm start"
   },
   "author": "Aditya Dewan",
   "license": "ISC"
