@@ -81,7 +81,7 @@ class EnergyGraph extends Component{
 
 
     getGraphData() {
-        axios.get('http://localhost:3001/api/getData').then((response) =>{
+        axios.get('/api/getData').then((response) =>{
             var data = response.data;
             const data_values = Object.values(data);
             const data_array = data_values[1];
