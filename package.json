@@ -1,6 +1,6 @@
 {
   "name": "crysta_mvp",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Crysta's MVP",
   "main": "index.js",
   "dependencies": {

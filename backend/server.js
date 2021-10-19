@@ -28,7 +28,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // (optional) only made for logging and
 // bodyParser, parses the request body to be a readable json format
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
@@ -45,7 +45,7 @@ app.post('/send-user', (req, res) => {
 
 app.get('/*', (req, res) => {
   let url = path.join(__dirname, '../public', 'index.html');
-  if (!url.startsWith('/app/')) // we're on local windows
+  if (!url.startsWith('/src/')) // we're on local windows
     url = url.substring(1);
   res.sendFile(url);
 });
