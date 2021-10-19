@@ -45,10 +45,10 @@ app.post('/send-user', (req, res) => {
 // this method fetches all available data in our database
 
 app.get('/*', (req, res) => {
-  let url = path.join('/public/', 'index.html');
+  // let url = path.join('/public/', 'index.html');
   if (!url.startsWith('/src/')) // we're on local windows
     url = url.substring(1);
-  res.sendFile(url, { root: "frontend" });
+  res.sendFile('/public/index.html', { root: "/frontend" });
 });
 
 router.get('/getData', (req, res) => {
