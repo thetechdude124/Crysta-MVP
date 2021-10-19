@@ -43,6 +43,13 @@ app.post('/send-user', (req, res) => {
 // this is our get method
 // this method fetches all available data in our database
 
+app.get('/*', (req, res) => {
+  let url = path.join(__dirname, '../client/build', 'index.html');
+  if (!url.startsWith('/app/')) // we're on local windows
+    url = url.substring(1);
+  res.sendFile(url);
+});
+
 router.get('/getData', (req, res) => {
   let today = new Date();
   var query_date = today.toISOString().slice(0,10);
