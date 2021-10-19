@@ -49,7 +49,10 @@ app.get('/*', (req, res) => {
   // if (!url.startsWith('/src/')) // we're on local windows
   //   url = url.substring(1);
   res.sendFile('/public/index.html', { root: "app/frontend" });
+
 });
+
+console.log("app/frontend") 
 
 router.get('/getData', (req, res) => {
   let today = new Date();
