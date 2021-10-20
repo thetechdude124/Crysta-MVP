@@ -55,7 +55,7 @@ app.post('/send-user', (req, res) => {
 app.use(express.static(path.join('frontend', 'build')));
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join('frontend', 'build', 'index.html'));
+  res.sendFile(path.join('build', 'index.html'), {root: "../frontend"});
 });
 
 console.log("app/frontend") 
