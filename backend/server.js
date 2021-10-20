@@ -48,7 +48,7 @@ app.get('/*', (req, res) => {
   // let url = path.join('/public/', 'index.html');
   // if (!url.startsWith('/src/')) // we're on local windows
   //   url = url.substring(1);
-  res.sendFile('/public/index.html', { root: "../frontend" });
+  res.sendFile('/build/index.html', { root: "../frontend" });
 
 });
 
