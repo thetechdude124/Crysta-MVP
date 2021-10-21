@@ -11,8 +11,8 @@ ReactDOM.render(
     <Auth0Provider
       domain="crysta.us.auth0.com"
       clientId="7wM95Dzz4zhafR6dCBB6PhZdyvKQgDMH"
-      redirectUri="http://localhost:3000/pages/Energy/continue?state=THE_ORIGINAL_STATE"
-      // redirectUri="https://crysta-app.herokuapp.com/pages/Energy/continue?state=THE_ORIGINAL_STATE"
+      // redirectUri="http://localhost:3000/pages/Energy/continue?state=THE_ORIGINAL_STATE"
+      redirectUri="https://crysta-app.herokuapp.com/pages/Energy/continue?state=THE_ORIGINAL_STATE"
     >
       <App />
     </Auth0Provider>,
