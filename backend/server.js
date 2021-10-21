@@ -44,32 +44,6 @@ app.post('/send-user', (req, res) => {
 // this is our get method
 // this method fetches all available data in our database
 
-// app.get('/*', (req, res) => {
-//   // let url = path.join('/public/', 'index.html');
-//   // if (!url.startsWith('/app/')) // we're on local windows
-//   //   url = url.substring(1);
-//   res.sendFile('/build/index.html', { root: "../frontend" });
-
-// });
-
-app.use(express.static(path.join(__dirname, '../frontend', '/build')));
-
-app.get('*', (req, res) =>
-  res.sendFile(
-    path.resolve(__dirname, '..', 'frontend', 'build', 'index.html')
-  )
-);
-
-// app.get('/', function (req, res) {
-//   res.sendFile(path.join('build'), {root: "../frontend"});
-// });
-
-// app.use(express.static(path.join(__dirname, '../build')))
-
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../build'))
-// });
-
 console.log("app/frontend") 
 
 router.get('/getData', (req, res) => {
@@ -123,6 +97,14 @@ router.post('/putData', (req, res) => {
   });
 });
 
+
+app.use(express.static(path.join(__dirname, '../frontend', '/build')));
+
+app.get('*', (req, res) =>
+  res.sendFile(
+    path.resolve(__dirname, '..', 'frontend', 'build', 'index.html')
+  )
+);
 // append /api for our http requests
 app.use('/api', router);
 
