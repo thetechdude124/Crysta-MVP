@@ -1,9 +1,9 @@
 {
-  "short_name": "Crysta",
-  "name": "Crysta Frontend",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
-      "src": "Crysta_MVP_Favicon.png",
+      "src": "Crysta_MVP_Favicon",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
