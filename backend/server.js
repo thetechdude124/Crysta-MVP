@@ -52,7 +52,7 @@ app.post('/send-user', (req, res) => {
 
 // });
 
-app.use(express.static(path.join('../frontend', '/build')));
+app.use(express.static(path.join(__dirname, '../frontend', '/build')));
 
 app.get('*', (req, res) =>
   res.sendFile(
