@@ -46,7 +46,7 @@ app.post('/send-user', (req, res) => {
 
 // app.get('/*', (req, res) => {
 //   // let url = path.join('/public/', 'index.html');
-//   // if (!url.startsWith('/src/')) // we're on local windows
+//   // if (!url.startsWith('/app/')) // we're on local windows
 //   //   url = url.substring(1);
 //   res.sendFile('/build/index.html', { root: "../frontend" });
 
@@ -55,8 +55,14 @@ app.post('/send-user', (req, res) => {
 app.use(express.static(path.join('frontend', 'build')));
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join('build', 'index.html'), {root: "../frontend"});
+  res.sendFile(path.join('build'), {root: "../frontend"});
 });
+
+// app.use(express.static(path.join(__dirname, '../build')))
+
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../build'))
+// });
 
 console.log("app/frontend") 
 
