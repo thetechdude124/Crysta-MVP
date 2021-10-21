@@ -1,17 +1,12 @@
 import React, {Component, useState, useEffect} from 'react';
 import {Line} from 'react-chartjs-2';
 import axios from 'axios';
-import { useAuth0 } from "@auth0/auth0-react";
 
 // const uri = "mongodb+srv://crysta:3.14159265e@crysta-database.qrvsc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 // const client = new MongoClient(uri);
 // client.connect();
 // console.log("Connected");
 
-function DeclareAuth0() {
-    const { user } = useAuth0();
-    return user
-}
 class EnergyGraph extends Component{
 
     constructor(props){
