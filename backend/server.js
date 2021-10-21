@@ -100,13 +100,13 @@ router.post('/putData', (req, res) => {
 // append /api for our http requests
 app.use('/api', router);
 
-app.use(express.static(path.join(__dirname, '../frontend', '/build')));
+// app.use(express.static(path.join(__dirname, '../frontend', '/build')));
 
-app.get('*', (req, res) =>
-  res.sendFile(
-    path.resolve(__dirname, '..', 'frontend', 'build', 'index.html')
-  )
-);
+// app.get('*', (req, res) =>
+//   res.sendFile(
+//     path.resolve(__dirname, '..', 'frontend', 'build', 'index.html')
+//   )
+// );
 
 // launch our backend into a port
 app.listen(process.env.PORT || API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));

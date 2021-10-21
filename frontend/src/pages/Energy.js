@@ -48,6 +48,7 @@ function Energy() {
 
     return (
         <div className = "container-energy" class = "flex flex-col top-0 justify-items-center bg-gradient-to-r from-blue-400 via-green-300 to-green-200 h-screen w-screen">
+            <div className = "copyright" class = "text-right mt-3 mr-5 text-sm font-semibold text-white">Copyright Crysta 2021</div>
             <div className = "energy-menu" class = "flex bg-gray-50 shadow-md rounded-3xl h-5/6 w-5/6 m-auto">
                 <div className = "energy-level-heading" class = "flex bg-green-400 h-8 w-64 rounded-3xl mt-2.5 ml-8 justify-center fixed">
                     <p class = "text-white mt-1.5 font-semibold text-sm">YOUR ENERGY LEVELS</p> 
@@ -67,6 +68,8 @@ function Energy() {
                     <EnergyGraph />
                 </div>
             </div>
+            
+            <div className = "version" class = "text-right text-md text-white font-semibold mr-5 mb-5">v.0.0 - MVP</div>
         </div>
     );
 };
