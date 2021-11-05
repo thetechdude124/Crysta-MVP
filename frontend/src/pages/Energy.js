@@ -49,24 +49,29 @@ function Energy() {
             <div className = "copyright" class = "text-right mt-3 mr-5 text-sm font-semibold text-white">Copyright Crysta 2021</div>
             <div className = "insights-energy-container" class = "flex h-5/6 w-5/6 m-auto">
                 <div className = "insights-menu" class = "flex flex-col text-center bg-gray-50 shadow-md rounded-3xl h-full w-3/12 mr-8 m-auto">
-                    <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-red-500 via-orange-400 to-yellow-300 h-8 w-44 rounded-3xl mt-2.5 ml-3.5 justify-center">
+                    <div className = "energy-level-heading" class = "flex bg-green-400 h-8 w-64 rounded-3xl mt-2.5 ml-3.5 justify-center">
                         <p class = "text-white mt-1 font-semibold text-base">INSIGHTS</p> 
                     </div>
-                    <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-500 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-8 ml-3.5 justify-center ">
-                        <p class = "text-white mt-1.5 font-semibold text-sm">MOST PRODUCTIVE TIME</p> 
+                    <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-8 ml-3.5 justify-center ">
+                        <p class = "text-black mt-1.5 font-semibold text-sm">MOST PRODUCTIVE TIME</p> 
                     </div>
-                    <div className = "most-productive-time"> 05:00 PM | 4.5 </div>
-                    <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-red-500 via-orange-400 to-yellow-300 h-8 w-11/12 rounded-3xl mt-8 ml-3.5 justify-center ">
-                        <p class = "text-white mt-1.5 font-semibold text-sm">MOST CREATIVE TIME</p> 
+                    <div className = "most-productive-time" class = "text-3xl mt-4 font-light"> 05:00 PM | 9.5 </div>
+                    <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 ml-3.5 justify-center ">
+                        <p class = "text-black mt-1.5 font-semibold text-sm">MOST CREATIVE TIME</p> 
                     </div>
-                    <div className = "most-creative-time"> </div>
-                    <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-purple-500 via-indigo-400 to-blue-300 h-8 w-11/12 rounded-3xl mt-8 ml-3.5 justify-center ">
+                    <div className = "most-creative-time" class = "text-3xl mt-4 font-light"> 11:00 AM | 3</div>
+
+                    <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-purple-500 via-indigo-400 to-blue-300 h-8 w-11/12 rounded-3xl mt-5 ml-3.5 justify-center ">
                         <p class = "text-white mt-1.5 font-semibold text-sm">OTHER INSIGHTS</p> 
                     </div>
-                    <div className = "other-metrics"> </div>
+                    <div className = "other-metrics" class = "grid-cols-2"> 
+                        <div className = "task-switches" class = "flex flex-col w-1/2 h">
+
+                        </div>
+                    </div>
                 </div>
                 <div className = "energy-menu" class = "flex bg-gray-50 shadow-md rounded-3xl h-full w-9/12 m-auto">
-                    <div className = "energy-level-heading" class = "flex bg-green-400 h-8 w-64 rounded-3xl mt-2.5 ml-7 justify-center fixed">
+                    <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-64 rounded-3xl mt-2.5 ml-7 justify-center fixed">
                         <p class = "text-white mt-1 font-semibold text-base">YOUR ENERGY LEVELS</p> 
                     </div>
                     {/* <div className = "info-icon">
