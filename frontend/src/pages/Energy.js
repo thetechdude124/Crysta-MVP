@@ -6,8 +6,6 @@ import { IconContext } from 'react-icons';
 
 
 function Energy() {
-    
-   
 
     // if (isAuthenticated) {
     //     const printname = user?.name;
@@ -50,8 +48,8 @@ function Energy() {
         <div className = "container-energy" class = "flex flex-col top-0 justify-items-center bg-gradient-to-r from-blue-400 via-green-300 to-green-200 h-screen w-screen">
             <div className = "copyright" class = "text-right mt-3 mr-5 text-sm font-semibold text-white">Copyright Crysta 2021</div>
             <div className = "insights-energy-container" class = "flex h-5/6 w-5/6 m-auto">
-                <div className = "insights-menu" class = "flex flex-col bg-gray-50 shadow-md rounded-3xl h-full w-2/6 mr-8 m-auto">
-                    <div className = "energy-level-heading" class = "flex bg-green-400 h-8 w-44 rounded-3xl mt-2.5 ml-3.5 justify-center">
+                <div className = "insights-menu" class = "flex flex-col text-center bg-gray-50 shadow-md rounded-3xl h-full w-3/12 mr-8 m-auto">
+                    <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-red-500 via-orange-400 to-yellow-300 h-8 w-44 rounded-3xl mt-2.5 ml-3.5 justify-center">
                         <p class = "text-white mt-1 font-semibold text-base">INSIGHTS</p> 
                     </div>
                     <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-500 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-8 ml-3.5 justify-center ">
@@ -67,7 +65,7 @@ function Energy() {
                     </div>
                     <div className = "other-metrics"> </div>
                 </div>
-                <div className = "energy-menu" class = "flex bg-gray-50 shadow-md rounded-3xl h-full w-5/6 m-auto">
+                <div className = "energy-menu" class = "flex bg-gray-50 shadow-md rounded-3xl h-full w-9/12 m-auto">
                     <div className = "energy-level-heading" class = "flex bg-green-400 h-8 w-64 rounded-3xl mt-2.5 ml-7 justify-center fixed">
                         <p class = "text-white mt-1 font-semibold text-base">YOUR ENERGY LEVELS</p> 
                     </div>
