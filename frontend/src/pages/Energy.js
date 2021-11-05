@@ -54,12 +54,18 @@ function Energy() {
                     <div className = "energy-level-heading" class = "flex bg-green-400 h-8 w-44 rounded-3xl mt-2.5 ml-3.5 justify-center">
                         <p class = "text-white mt-1 font-semibold text-base">INSIGHTS</p> 
                     </div>
-                    <div className = "energy-level-heading" class = "flex bg-blue-400 h-8 w-11/12 rounded-3xl mt-8 ml-3.5 justify-center ">
+                    <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-500 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-8 ml-3.5 justify-center ">
                         <p class = "text-white mt-1.5 font-semibold text-sm">MOST PRODUCTIVE TIME</p> 
                     </div>
-                    <div className = "energy-level-heading" class = "flex bg-red-500 h-8 w-11/12 rounded-3xl mt-8 ml-3.5 justify-center ">
+                    <div className = "most-productive-time"> 05:00 PM | 4.5 </div>
+                    <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-red-500 via-orange-400 to-yellow-300 h-8 w-11/12 rounded-3xl mt-8 ml-3.5 justify-center ">
                         <p class = "text-white mt-1.5 font-semibold text-sm">MOST CREATIVE TIME</p> 
                     </div>
+                    <div className = "most-creative-time"> </div>
+                    <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-purple-500 via-indigo-400 to-blue-300 h-8 w-11/12 rounded-3xl mt-8 ml-3.5 justify-center ">
+                        <p class = "text-white mt-1.5 font-semibold text-sm">OTHER INSIGHTS</p> 
+                    </div>
+                    <div className = "other-metrics"> </div>
                 </div>
                 <div className = "energy-menu" class = "flex bg-gray-50 shadow-md rounded-3xl h-full w-5/6 m-auto">
                     <div className = "energy-level-heading" class = "flex bg-green-400 h-8 w-64 rounded-3xl mt-2.5 ml-7 justify-center fixed">
