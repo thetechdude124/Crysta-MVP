@@ -46,7 +46,7 @@ function Energy() {
 
     return (
         <div className = "container-energy" class = "flex flex-col top-0 justify-items-center bg-gradient-to-r from-blue-400 via-green-300 to-green-200 h-screen w-screen">
-            <div className = "copyright" class = "text-right mt-3 mr-5 text-sm font-semibold text-white">Copyright Crysta 2021</div>
+            <div className = "copyright" class = "text-right mt-3 mr-5 text-sm font-semibold text-black">Copyright Crysta 2021</div>
             <div className = "insights-energy-container" class = "flex h-5/6 w-5/6 m-auto">
                 <div className = "insights-menu" class = "flex flex-col text-center bg-gray-50 shadow-md rounded-3xl h-full w-3/12 mr-8 m-auto">
                     <div className = "energy-level-heading" class = "flex bg-green-400 h-8 w-64 rounded-3xl mt-2.5 ml-3.5 justify-center">
@@ -64,9 +64,22 @@ function Energy() {
                     <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-purple-500 via-indigo-400 to-blue-300 h-8 w-11/12 rounded-3xl mt-5 ml-3.5 justify-center ">
                         <p class = "text-white mt-1.5 font-semibold text-sm">OTHER INSIGHTS</p> 
                     </div>
-                    <div className = "other-metrics" class = "grid-cols-2"> 
-                        <div className = "task-switches" class = "flex flex-col w-1/2 h">
-
+                    <div className = "other-metrics" class = "grid grid-cols-2 mt-4"> 
+                        <div className = "task-switches" class = "flex flex-col justify-center">
+                            <div class = "text-xs">TASK SWITCHES</div>
+                            <div class = "text-3xl font-semibold">200</div>
+                        </div>
+                        <div className = "task-switches" class = "flex flex-col justify-center">
+                            <div class = "text-xs font-semibold">DISTRACTING SITES</div>
+                            <div class = "text-2xl font-semibold">200</div>
+                        </div>
+                        <div className = "task-switches" class = "flex flex-col justify-center">
+                            <div class = "text-xs font-semibold">TIME PER TASK</div>
+                            <div class = "text-lg font-semibold">200</div>
+                        </div>
+                        <div className = "task-switches" class = "flex flex-col justify-center">
+                            <div class = "text-xs font-semibold">UNSCALED SCORE</div>
+                            <div class = "text-lg font-semibold">200</div>
                         </div>
                     </div>
                 </div>
