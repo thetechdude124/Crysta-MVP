@@ -144,9 +144,9 @@ class EnergyGraph extends Component{
                 <Line
                     data = {this.state.graphData}
                     width = {1580}
-                    height = {750}
+                    height = {550}
                     options = {{
-                        maintainAspectRatio: true,
+                        maintainAspectRatio: false,
                         responsive: true,
                     }}
                 />
