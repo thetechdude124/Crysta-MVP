@@ -100,7 +100,7 @@ class EnergyGraph extends Component{
                     labels: labels,
                     datasets: [
                         {
-                            label: 'Task Switches',
+                            label: 'ENERGY SCORE',
                             // data: [
                             //     11,
                             //     16,
