@@ -48,38 +48,38 @@ function Energy() {
         <div className = "container-energy" class = "flex flex-col top-0 justify-items-center bg-gradient-to-r from-blue-400 via-green-300 to-green-200 h-screen w-screen">
             <div className = "copyright" class = "text-right mt-3 mr-5 text-sm font-semibold text-black">Copyright Crysta 2021</div>
             <div className = "insights-energy-container" class = "flex h-5/6 w-5/6 m-auto">
-                <div className = "insights-menu" class = "flex flex-col text-center bg-gray-50 shadow-md rounded-3xl h-full w-3/12 mr-8 m-auto">
-                    <div className = "energy-level-heading" class = "flex bg-green-400 h-8 w-64 rounded-3xl mt-2.5 ml-3.5 justify-center">
+                <div className = "insights-menu" class = "flex flex-col text-center bg-gray-50 shadow-md rounded-3xl h-full w-3/12 mr-8 m-auto items-center">
+                    <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-2.5 justify-center">
                         <p class = "text-white mt-1 font-semibold text-base">INSIGHTS</p> 
                     </div>
-                    <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-8 ml-3.5 justify-center ">
-                        <p class = "text-black mt-1.5 font-semibold text-sm">MOST PRODUCTIVE TIME</p> 
+                    <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-8 justify-center ">
+                        <p class = "text-blue-700 mt-1.5 font-semibold text-sm">MOST PRODUCTIVE TIME</p> 
                     </div>
                     <div className = "most-productive-time" class = "text-3xl mt-4 font-light"> 05:00 PM | 9.5 </div>
-                    <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 ml-3.5 justify-center ">
-                        <p class = "text-black mt-1.5 font-semibold text-sm">MOST CREATIVE TIME</p> 
+                    <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
+                        <p class = "text-red-700 mt-1.5 font-semibold text-sm">MOST CREATIVE TIME</p> 
                     </div>
                     <div className = "most-creative-time" class = "text-3xl mt-4 font-light"> 11:00 AM | 3</div>
 
-                    <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-purple-500 via-indigo-400 to-blue-300 h-8 w-11/12 rounded-3xl mt-5 ml-3.5 justify-center ">
-                        <p class = "text-white mt-1.5 font-semibold text-sm">OTHER INSIGHTS</p> 
+                    <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
+                        <p class = "text-black mt-1.5 font-semibold text-sm">OTHER INSIGHTS</p> 
                     </div>
-                    <div className = "other-metrics" class = "grid grid-cols-2 mt-4 gap-y-5 gap-x-2 bg-gray-200 rounded-3xl ml-3.5 mr-3.5"> 
-                        <div className = "task-switches" class = "flex flex-col justify-center">
+                    <div className = "other-metrics" class = "grid grid-cols-2 w-11/12 mt-6 gap-y-4 bg-gray-200 rounded-2xl"> 
+                        <div className = "task-switches" class = "flex flex-col justify-center ml-2 mt-2 bg-gray-100 rounded-2xl mr-2">
                             <div class = "text-xs font-semibold mt-3">TASK SWITCHES</div>
-                            <div class = "text-4xl font-light">200</div>
+                            <div class = "text-4xl font-light mb-3">200</div>
                         </div>
-                        <div className = "task-switches" class = "flex flex-col justify-center">
+                        <div className = "distracting-sites" class = "flex flex-col justify-center mr-2 mt-2 bg-gray-100 rounded-2xl ml-2">
                             <div class = "text-xs font-semibold mt-3">DISTRACTING SITES</div>
-                            <div class = "text-4xl font-light">200</div>
+                            <div class = "text-4xl font-light mb-3">5</div>
                         </div>
-                        <div className = "task-switches" class = "flex flex-col justify-center">
-                            <div class = "text-xs font-semibold ">TIME PER TASK</div>
-                            <div class = "text-4xl font-light mb-3">200</div>
+                        <div className = "time-per-task" class = "flex flex-col justify-center ml-2 mb-2 bg-gray-100 rounded-2xl mr-2">
+                            <div class = "text-xs font-semibold mt-3">TIME PER TASK</div>
+                            <div class = "text-4xl font-light mb-3">23.5</div>
                         </div>
-                        <div className = "task-switches" class = "flex flex-col justify-center">
-                            <div class = "text-xs font-semibold">UNSCALED SCORE</div>
-                            <div class = "text-4xl font-light mb-3">200</div>
+                        <div className = "unscaled-score" class = "flex flex-col justify-center mr-2 mb-2 bg-gray-100 rounded-2xl ml-2">
+                            <div class = "text-xs font-semibold mt-3">UNSCALED SCORE</div>
+                            <div class = "text-4xl font-light mb-3">12.83</div>
                         </div>
                     </div>
                 </div>
