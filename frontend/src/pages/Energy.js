@@ -64,22 +64,22 @@ function Energy() {
                     <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-purple-500 via-indigo-400 to-blue-300 h-8 w-11/12 rounded-3xl mt-5 ml-3.5 justify-center ">
                         <p class = "text-white mt-1.5 font-semibold text-sm">OTHER INSIGHTS</p> 
                     </div>
-                    <div className = "other-metrics" class = "grid grid-cols-2 mt-4"> 
+                    <div className = "other-metrics" class = "grid grid-cols-2 mt-4 gap-y-5 gap-x-2 bg-gray-200 rounded-3xl ml-3.5 mr-3.5"> 
                         <div className = "task-switches" class = "flex flex-col justify-center">
-                            <div class = "text-xs">TASK SWITCHES</div>
-                            <div class = "text-3xl font-semibold">200</div>
+                            <div class = "text-xs font-semibold mt-3">TASK SWITCHES</div>
+                            <div class = "text-4xl font-light">200</div>
                         </div>
                         <div className = "task-switches" class = "flex flex-col justify-center">
-                            <div class = "text-xs font-semibold">DISTRACTING SITES</div>
-                            <div class = "text-2xl font-semibold">200</div>
+                            <div class = "text-xs font-semibold mt-3">DISTRACTING SITES</div>
+                            <div class = "text-4xl font-light">200</div>
                         </div>
                         <div className = "task-switches" class = "flex flex-col justify-center">
-                            <div class = "text-xs font-semibold">TIME PER TASK</div>
-                            <div class = "text-lg font-semibold">200</div>
+                            <div class = "text-xs font-semibold ">TIME PER TASK</div>
+                            <div class = "text-4xl font-light mb-3">200</div>
                         </div>
                         <div className = "task-switches" class = "flex flex-col justify-center">
                             <div class = "text-xs font-semibold">UNSCALED SCORE</div>
-                            <div class = "text-lg font-semibold">200</div>
+                            <div class = "text-4xl font-light mb-3">200</div>
                         </div>
                     </div>
                 </div>
