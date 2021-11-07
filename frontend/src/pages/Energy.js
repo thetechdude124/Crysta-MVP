@@ -64,7 +64,7 @@ function Energy() {
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
                         <p class = "text-black mt-1.5 font-semibold text-sm">OTHER INSIGHTS</p> 
                     </div>
-                    <div className = "other-metrics" class = "grid grid-cols-2 w-11/12 mt-6 gap-y-4 bg-gray-200 rounded-2xl"> 
+                    <div className = "other-metrics" class = "grid grid-cols-2 w-11/12 mt-6 gap-y-4 bg-gray-200 rounded-2xl mb-2.5"> 
                         <div className = "task-switches" class = "flex flex-col justify-center ml-2 mt-2 bg-gray-100 rounded-2xl mr-2">
                             <div class = "text-xs font-semibold mt-3">TASK SWITCHES</div>
                             <div class = "text-4xl font-light mb-3">200</div>
@@ -81,6 +81,9 @@ function Energy() {
                             <div class = "text-xs font-semibold mt-3">UNSCALED SCORE</div>
                             <div class = "text-4xl font-light mb-3">12.83</div>
                         </div>
+                    </div>
+                    <div className = "energy-level-heading" class = "flex bg-gray-200 w-11/12 rounded-3xl mt-3 justify-center ">
+                        <p class = "text-black mt-3 mb-3 ml-1 mr-1 text-sm">These are the insights we found - the more you use Crysta, the more accurate they get!</p> 
                     </div>
                 </div>
                 <div className = "energy-menu" class = "flex bg-gray-50 shadow-md rounded-3xl h-full w-9/12 m-auto">
