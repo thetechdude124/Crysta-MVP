@@ -56,6 +56,16 @@ router.get('/getData', (req, res) => {
   });
 });
 
+router.get('/getInsights', (req, res) => {
+  let today = new Date();
+  var query_date = today.toISOString().slice(0,10);
+  var query = {username: username, date: query_date};
+  Data.find(query, (err, data) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true, data: data });
+  });
+});
+
 // this is our update method
 // this method overwrites existing data in our database
 router.post('/updateData', (req, res) => {

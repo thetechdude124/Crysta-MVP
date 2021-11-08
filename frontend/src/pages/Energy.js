@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import './Energy.css';
 import EnergyGraph from './EnergyGraph'
 import { AiOutlineInfoCircle } from "react-icons/ai";
@@ -7,42 +7,9 @@ import { IconContext } from 'react-icons';
 
 function Energy() {
 
-    // if (isAuthenticated) {
-    //     const printname = user?.name;
-    //     console.log(printname);
-    // };
+    const [productivetime, setProductivetime, creativetime, setCreativetime, taskswitches, setTaskswitches, distractingsites, setDistractingsites, timepertask, setTimepertask, unscaledscore, setUnscaledscore] = useState();
 
-    // if (isAuthenticated) {
-
-    //     axios.post('http://127.0.0.1:5000/user', user?.name);
-
-    //     // const data = res.data;
-    //     // console.log(data);
-    //     // console.log(res.data);
-    // };
-
-
-    // function SendData() {
-    //     var date = new Date();
-    //     if (date.getMinutes() === 0 && isAuthenticated) {
-
-    //         setTimeout(SendData, delay);
-    //     } else {
-            
-    //         date.setHours(date.getHours() + 1)
-    //         date.setMinutes(0);
-    //         date.setSeconds(0);
-
-    //         var delay = date - new Date();
-    //         setTimeout(SendData, delay);
-    //     };
-    // };   
-
-    // useEffect((user)=>{
-
-
-
-    // },[])
+    
 
     return (
         <div className = "container-energy" class = "flex flex-col top-0 justify-items-center bg-gradient-to-r from-blue-400 via-green-300 to-green-200 h-screen w-screen">
