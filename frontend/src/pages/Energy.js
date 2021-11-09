@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './Energy.css';
 import EnergyGraph from './EnergyGraph'
 import axios from 'axios';
-import { render } from 'react-dom';
 
 function Energy() {
 
@@ -19,6 +18,7 @@ function Energy() {
         var div_scores = [];
         var unscaled_scores = [];
         var average_task_times = [];
+        var n_distracting_tasks = [];
         this.setState({ mongo_data: data_array});
         data_array.forEach(data_array => {
             labels.push(data_array.hour);
@@ -26,9 +26,26 @@ function Energy() {
             div_scores.push(data_array.divided_energy_score);
             unscaled_scores.push(data_array.unscaled_energy_score);
             average_task_times.push(data_array.average_task_time);
+            n_distracting_tasks.push(data_array.distracting_tasks)
         });
-        setTaskswitches(average(task_switches).toFixed(0));
         
+        setTaskswitches(average(task_switches).toFixed(0));
+        //Finding the min and max of the div_scores array, to find the most creative and productive times
+        var min_score = Math.min(...div_scores);
+        var min_idx = div_scores.indexOf(min_score);
+
+        var max_score = Math.max(...div_scores);
+        var max_idx = div_scores.indexOf(max_score);
+
+        setCreativetime(labels[min_idx]);
+        setProductivetime(labels[max_idx]);
+        
+        //Distracting Tasks - average
+        setDistractingsites(average(n_distracting_tasks).toFixed(0))
+        //Average of Average Task Times
+        setTimepertask(average(average_task_times).toFixed(0))
+        //Average of Unscaled Scores
+        setUnscaledscore(average(unscaled_scores).toFixed(0))
     });
 
 
