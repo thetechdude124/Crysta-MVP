@@ -29,6 +29,14 @@ function Energy() {
         setTaskswitches(average(task_switches).toFixed(0));
     });
 
+    let prod_div;
+
+    if (productivetime == "undefined") {
+        prod_div = <div className = 'most-productive-time' class = 'text-lg mt-4 font-light'>This field will be filled automatically as you continue to use Crysta.</div>;
+    } else {
+        prod_div = <div className = 'most-productive-time' class = 'text-3xl mt-4 font-light'>{productivetime}</div>;
+    }
+
     return (
         <div className = "container-energy" class = "flex flex-col top-0 justify-items-center bg-gradient-to-r from-blue-400 via-green-300 to-green-200 h-screen w-screen">
             <div className = "copyright" class = "text-right mt-3 mr-5 text-sm font-semibold text-black">Copyright Crysta 2021</div>
@@ -40,15 +48,8 @@ function Energy() {
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-8 justify-center ">
                         <p class = "text-blue-700 mt-1.5 font-semibold text-sm">MOST PRODUCTIVE TIME</p> 
                     </div>
-                    <script type = "text/javascript">
-                        if ({productivetime} == "undefined" or {productivetime} == null) {
-                            document.add("<div className = 'most-productive-time' class = 'text-lg mt-4 font-light'>This field will be filled automatically as you continue to use Crysta.</div>")
-                        }
-                        else {
-                            document.getElementById("productive_text").innerHTML = "<div className = 'most-productive-time' class = 'text-3xl mt-4 font-light'>{productivetime}</div>"
-                        }
-                    </script>
-                    <p id = "productive_text"></p>
+                    <div id = "productive_text"></div>
+                    {prod_div}
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
                         <p class = "text-red-700 mt-1.5 font-semibold text-sm">MOST CREATIVE TIME</p> 
                     </div>
