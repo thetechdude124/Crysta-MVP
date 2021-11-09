@@ -80,14 +80,14 @@ class EnergyGraph extends Component{
             var data = response.data;
             const data_values = Object.values(data);
             const data_array = data_values[1];
-            var task_switches = [];
+            var div_scores = [];
             var labels = [];
             this.setState({ mongo_data: data_array});
             data_array.forEach(data_array => {
                 labels.push(data_array.hour);
-                task_switches.push(data_array.task_switches);
+                div_scores.push(data_array.divided_energy_score);
             })
-            console.log(task_switches);
+            console.log(div_scores);
             console.log(labels);
             console.log("Received task_switches!");
             console.log(data_array);
@@ -120,7 +120,7 @@ class EnergyGraph extends Component{
                             //     22,  
                             //     18
                             // ],
-                            data: task_switches,
+                            data: div_scores,
                             borderWidth: 8,
                             borderColor: "rgba(20, 177, 183, 0.4)",
                             pointBackgroundColor: "rgb(77, 77, 77, 1)",

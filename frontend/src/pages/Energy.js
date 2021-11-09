@@ -5,7 +5,7 @@ import axios from 'axios';
 
 function Energy() {
 
-    const [productivetime, setProductivetime, creativetime, setCreativetime, taskswitches, setTaskswitches, distractingsites, setDistractingsites, timepertask, setTimepertask, unscaledscore, setUnscaledscore] = useState();
+    const [productivetime, setProductivetime, creativetime, setCreativetime, taskswitches, setTaskswitches, distractingsites, setDistractingsites, timepertask, setTimepertask, unscaledscore, setUnscaledscore] = useState('');
 
     const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
 
@@ -19,7 +19,9 @@ function Energy() {
         var unscaled_scores = [];
         var average_task_times = [];
         var n_distracting_tasks = [];
-        this.setState({ mongo_data: data_array});
+
+        // this.setState({ mongo_data: data_array});
+
         data_array.forEach(data_array => {
             labels.push(data_array.hour);
             task_switches.push(data_array.task_switches);
@@ -51,7 +53,7 @@ function Energy() {
 
     let prod_div;
 
-    if (productivetime == undefined) {
+    if (productivetime === undefined) {
         prod_div = <div className = 'most-productive-time' class = 'text-sm w-11/12 mt-4 font-light'>This dashboard will be filled automatically and will get more accurate as you continue to use Crysta.</div>;
     } else {
         prod_div = <div className = 'most-productive-time' class = 'text-3xl mt-4 font-light'>{productivetime}</div>;
