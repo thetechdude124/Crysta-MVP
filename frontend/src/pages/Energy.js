@@ -5,7 +5,12 @@ import axios from 'axios';
 
 function Energy() {
 
-    const [productivetime, setProductivetime, creativetime, setCreativetime, taskswitches, setTaskswitches, distractingsites, setDistractingsites, timepertask, setTimepertask, unscaledscore, setUnscaledscore] = useState('');
+    const [productivetime, setProductivetime] = useState();
+    const [creativetime, setCreativetime] = useState(); 
+    const [taskswitches, setTaskswitches] = useState();
+    const [distractingsites, setDistractingsites]  = useState();
+    const [timepertask, setTimepertask] = useState();
+    const [unscaledscore, setUnscaledscore] = useState();
 
     const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
 
@@ -28,7 +33,7 @@ function Energy() {
             div_scores.push(data_array.divided_energy_score);
             unscaled_scores.push(data_array.unscaled_energy_score);
             average_task_times.push(data_array.average_task_time);
-            n_distracting_tasks.push(data_array.distracting_tasks)
+            n_distracting_tasks.push(data_array.distracting_tasks);
         });
         
         setTaskswitches(average(task_switches).toFixed(0));
@@ -67,10 +72,10 @@ function Energy() {
                     <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-2.5 justify-center">
                         <p class = "text-white mt-1 font-semibold text-base">INSIGHTS</p> 
                     </div>
-                    {prod_div}
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-8 justify-center ">
                         <p class = "text-blue-700 mt-1.5 font-semibold text-sm">MOST PRODUCTIVE TIME</p> 
                     </div>
+                    {prod_div}
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
                         <p class = "text-red-700 mt-1.5 font-semibold text-sm">MOST CREATIVE TIME</p> 
                     </div>
@@ -85,11 +90,11 @@ function Energy() {
                             <div class = "text-4xl font-light mb-3">{taskswitches}</div>
                         </div>
                         <div className = "distracting-sites" class = "flex flex-col justify-center mr-2 mt-2 bg-gray-100 rounded-2xl ml-2">
-                            <div class = "text-xs font-semibold mt-3">DISTRACTING SITES</div>
+                            <div class = "text-xs font-semibold mt-3"># DISTRACTING SITES</div>
                             <div class = "text-4xl font-light mb-3">{distractingsites}</div>
                         </div>
                         <div className = "time-per-task" class = "flex flex-col justify-center ml-2 mb-2 bg-gray-100 rounded-2xl mr-2">
-                            <div class = "text-xs font-semibold mt-3">TIME PER TASK</div>
+                            <div class = "text-xs font-semibold mt-3">TIME PER TASK (SEC)</div>
                             <div class = "text-4xl font-light mb-3">{timepertask}</div>
                         </div>
                         <div className = "unscaled-score" class = "flex flex-col justify-center mr-2 mb-2 bg-gray-100 rounded-2xl ml-2">
@@ -98,7 +103,7 @@ function Energy() {
                         </div>
                     </div>
                     <div className = "energy-level-heading" class = "flex bg-gray-200 w-11/12 rounded-3xl mt-3 justify-center ">
-                        <p class = "text-black mt-3 mb-3 ml-1 mr-1 text-sm">These are the insights we found - the more you use Crysta, the more accurate they get!</p> 
+                        <p class = "text-black mt-3 mb-3 ml-2 mr-2 text-xs">These are the insights we found - the more you use Crysta, the more accurate they get!</p> 
                     </div>
                 </div>
                 <div className = "energy-menu" class = "flex bg-gray-50 shadow-md rounded-3xl h-full w-9/12 m-auto">
