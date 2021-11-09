@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Energy.css';
 import EnergyGraph from './EnergyGraph'
 import axios from 'axios';
+import { render } from 'react-dom';
 
 function Energy() {
 
@@ -27,12 +28,14 @@ function Energy() {
             average_task_times.push(data_array.average_task_time);
         });
         setTaskswitches(average(task_switches).toFixed(0));
+        
     });
+
 
     let prod_div;
 
-    if (productivetime == "undefined") {
-        prod_div = <div className = 'most-productive-time' class = 'text-lg mt-4 font-light'>This field will be filled automatically as you continue to use Crysta.</div>;
+    if (productivetime == undefined) {
+        prod_div = <div className = 'most-productive-time' class = 'text-sm w-11/12 mt-4 font-light'>This dashboard will be filled automatically and will get more accurate as you continue to use Crysta.</div>;
     } else {
         prod_div = <div className = 'most-productive-time' class = 'text-3xl mt-4 font-light'>{productivetime}</div>;
     }
@@ -45,11 +48,10 @@ function Energy() {
                     <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-2.5 justify-center">
                         <p class = "text-white mt-1 font-semibold text-base">INSIGHTS</p> 
                     </div>
+                    {prod_div}
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-8 justify-center ">
                         <p class = "text-blue-700 mt-1.5 font-semibold text-sm">MOST PRODUCTIVE TIME</p> 
                     </div>
-                    <div id = "productive_text"></div>
-                    {prod_div}
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
                         <p class = "text-red-700 mt-1.5 font-semibold text-sm">MOST CREATIVE TIME</p> 
                     </div>
