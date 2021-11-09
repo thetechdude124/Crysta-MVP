@@ -1,15 +1,33 @@
 import React, { useState } from 'react';
 import './Energy.css';
 import EnergyGraph from './EnergyGraph'
-import { AiOutlineInfoCircle } from "react-icons/ai";
-import { IconContext } from 'react-icons';
-
+import axios from 'axios';
 
 function Energy() {
 
     const [productivetime, setProductivetime, creativetime, setCreativetime, taskswitches, setTaskswitches, distractingsites, setDistractingsites, timepertask, setTimepertask, unscaledscore, setUnscaledscore] = useState();
 
-    
+    const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
+
+    axios.get('/api/getData').then((response) =>{
+        var data = response.data;
+        const data_values = Object.values(data);
+        const data_array = data_values[1];
+        var task_switches = [];
+        var labels = [];
+        var div_scores = [];
+        var unscaled_scores = [];
+        var average_task_times = [];
+        this.setState({ mongo_data: data_array});
+        data_array.forEach(data_array => {
+            labels.push(data_array.hour);
+            task_switches.push(data_array.task_switches);
+            div_scores.push(data_array.divided_energy_score);
+            unscaled_scores.push(data_array.unscaled_energy_score);
+            average_task_times.push(data_array.average_task_time);
+        });
+        setTaskswitches(average(task_switches).toFixed(0));
+    });
 
     return (
         <div className = "container-energy" class = "flex flex-col top-0 justify-items-center bg-gradient-to-r from-blue-400 via-green-300 to-green-200 h-screen w-screen">
@@ -22,11 +40,19 @@ function Energy() {
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-8 justify-center ">
                         <p class = "text-blue-700 mt-1.5 font-semibold text-sm">MOST PRODUCTIVE TIME</p> 
                     </div>
-                    <div className = "most-productive-time" class = "text-3xl mt-4 font-light"> 05:00 PM | 9.5 </div>
+                    <script type = "text/javascript">
+                        if ({productivetime} == "undefined" or {productivetime} == null) {
+                            document.add("<div className = 'most-productive-time' class = 'text-lg mt-4 font-light'>This field will be filled automatically as you continue to use Crysta.</div>")
+                        }
+                        else {
+                            document.getElementById("productive_text").innerHTML = "<div className = 'most-productive-time' class = 'text-3xl mt-4 font-light'>{productivetime}</div>"
+                        }
+                    </script>
+                    <p id = "productive_text"></p>
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
                         <p class = "text-red-700 mt-1.5 font-semibold text-sm">MOST CREATIVE TIME</p> 
                     </div>
-                    <div className = "most-creative-time" class = "text-3xl mt-4 font-light"> 11:00 AM | 3</div>
+                    <div className = "most-creative-time" class = "text-3xl mt-4 font-light">{creativetime}</div>
 
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
                         <p class = "text-black mt-1.5 font-semibold text-sm">OTHER INSIGHTS</p> 
@@ -34,19 +60,19 @@ function Energy() {
                     <div className = "other-metrics" class = "grid grid-cols-2 w-11/12 mt-6 gap-y-4 bg-gray-200 rounded-2xl mb-2.5"> 
                         <div className = "task-switches" class = "flex flex-col justify-center ml-2 mt-2 bg-gray-100 rounded-2xl mr-2">
                             <div class = "text-xs font-semibold mt-3">TASK SWITCHES</div>
-                            <div class = "text-4xl font-light mb-3">200</div>
+                            <div class = "text-4xl font-light mb-3">{taskswitches}</div>
                         </div>
                         <div className = "distracting-sites" class = "flex flex-col justify-center mr-2 mt-2 bg-gray-100 rounded-2xl ml-2">
                             <div class = "text-xs font-semibold mt-3">DISTRACTING SITES</div>
-                            <div class = "text-4xl font-light mb-3">5</div>
+                            <div class = "text-4xl font-light mb-3">{distractingsites}</div>
                         </div>
                         <div className = "time-per-task" class = "flex flex-col justify-center ml-2 mb-2 bg-gray-100 rounded-2xl mr-2">
                             <div class = "text-xs font-semibold mt-3">TIME PER TASK</div>
-                            <div class = "text-4xl font-light mb-3">23.5</div>
+                            <div class = "text-4xl font-light mb-3">{timepertask}</div>
                         </div>
                         <div className = "unscaled-score" class = "flex flex-col justify-center mr-2 mb-2 bg-gray-100 rounded-2xl ml-2">
                             <div class = "text-xs font-semibold mt-3">UNSCALED SCORE</div>
-                            <div class = "text-4xl font-light mb-3">12.83</div>
+                            <div class = "text-4xl font-light mb-3">{unscaledscore}</div>
                         </div>
                     </div>
                     <div className = "energy-level-heading" class = "flex bg-gray-200 w-11/12 rounded-3xl mt-3 justify-center ">
