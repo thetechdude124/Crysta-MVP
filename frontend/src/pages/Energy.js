@@ -100,17 +100,17 @@ function Energy() {
                     <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-2.5 justify-center">
                         <p class = "text-white mt-1 font-semibold text-base">INSIGHTS</p> 
                     </div>
-                    {prod_div}
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-8 justify-center ">
                         <p class = "text-blue-700 mt-1.5 font-semibold text-sm">MOST PRODUCTIVE TIME</p> 
                     </div>
+                    {prod_div}
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
                         <p class = "text-red-700 mt-1.5 font-semibold text-sm">MOST CREATIVE TIME</p> 
                     </div>
                     <div className = "most-creative-time" class = "text-3xl mt-4 font-light">{creativetime}</div>
 
-                    <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-2 justify-center ">
-                        <p class = "text-black mt-1.5 mb-3 font-semibold text-sm">OTHER INSIGHTS</p> 
+                    <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
+                        <p class = "text-black mt-1.5 font-semibold text-sm">OTHER INSIGHTS</p> 
                     </div>
                     <div className = "other-metrics" class = "grid grid-cols-2 w-11/12 mt-6 gap-y-4 bg-gray-200 rounded-2xl mb-2.5"> 
                         <div className = "task-switches" class = "flex flex-col justify-center ml-2 mt-2 bg-gray-100 rounded-2xl mr-2">
