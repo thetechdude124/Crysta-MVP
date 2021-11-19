@@ -57,11 +57,39 @@ function Energy() {
 
 
     let prod_div;
+    let task_display;
+    let distracting_display;
+    let time_display;
+    let unscaled_display;
 
     if (productivetime === undefined) {
-        prod_div = <div className = 'most-productive-time' class = 'text-sm w-11/12 mt-4 font-light'>This dashboard will be filled automatically and will get more accurate as you continue to use Crysta.</div>;
+        prod_div = <div className = 'most-productive-time' class = 'text-sm w-11/12 mt-4 font-light'>This dashboard will be filled automatically every hour - and will get more accurate as you continue to use the Crysta energy tracker!</div>;
     } else {
         prod_div = <div className = 'most-productive-time' class = 'text-3xl mt-4 font-light'>{productivetime}</div>;
+    }
+
+    if (taskswitches == 'NaN') {
+        task_display = <div class = "text-4xl font-light mb-3">0</div>;
+    } else {
+        task_display = <div class = "text-4xl font-light mb-3">{taskswitches}</div>;
+    }
+
+    if (distractingsites === 'NaN') {
+        distracting_display = <div class = "text-4xl font-light mb-3">0</div>;
+    } else {
+        distracting_display = <div class = "text-4xl font-light mb-3">{distractingsites}</div>;
+    }
+
+    if (timepertask === 'NaN') {
+        time_display = <div class = "text-4xl font-light mb-3">0</div>;
+    } else {
+        time_display = <div class = "text-4xl font-light mb-3">{timepertask}</div>;
+    }
+
+    if (unscaledscore === 'NaN') {
+        unscaled_display = <div class = "text-4xl font-light mb-3">0</div>;
+    } else {
+        unscaled_display = <div class = "text-4xl font-light mb-3">{unscaledscore}</div>;
     }
 
     return (
@@ -72,34 +100,34 @@ function Energy() {
                     <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-2.5 justify-center">
                         <p class = "text-white mt-1 font-semibold text-base">INSIGHTS</p> 
                     </div>
+                    {prod_div}
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-8 justify-center ">
                         <p class = "text-blue-700 mt-1.5 font-semibold text-sm">MOST PRODUCTIVE TIME</p> 
                     </div>
-                    {prod_div}
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
                         <p class = "text-red-700 mt-1.5 font-semibold text-sm">MOST CREATIVE TIME</p> 
                     </div>
                     <div className = "most-creative-time" class = "text-3xl mt-4 font-light">{creativetime}</div>
 
-                    <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
-                        <p class = "text-black mt-1.5 font-semibold text-sm">OTHER INSIGHTS</p> 
+                    <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-2 justify-center ">
+                        <p class = "text-black mt-1.5 mb-3 font-semibold text-sm">OTHER INSIGHTS</p> 
                     </div>
                     <div className = "other-metrics" class = "grid grid-cols-2 w-11/12 mt-6 gap-y-4 bg-gray-200 rounded-2xl mb-2.5"> 
                         <div className = "task-switches" class = "flex flex-col justify-center ml-2 mt-2 bg-gray-100 rounded-2xl mr-2">
                             <div class = "text-xs font-semibold mt-3">TASK SWITCHES</div>
-                            <div class = "text-4xl font-light mb-3">{taskswitches}</div>
+                            {task_display}
                         </div>
                         <div className = "distracting-sites" class = "flex flex-col justify-center mr-2 mt-2 bg-gray-100 rounded-2xl ml-2">
                             <div class = "text-xs font-semibold mt-3"># DISTRACTING SITES</div>
-                            <div class = "text-4xl font-light mb-3">{distractingsites}</div>
+                            {distracting_display}
                         </div>
                         <div className = "time-per-task" class = "flex flex-col justify-center ml-2 mb-2 bg-gray-100 rounded-2xl mr-2">
-                            <div class = "text-xs font-semibold mt-3">TIME PER TASK (SEC)</div>
-                            <div class = "text-4xl font-light mb-3">{timepertask}</div>
+                            <div class = "text-xs font-semibold mt-3">SECONDS PER TASK</div>
+                            {time_display}
                         </div>
                         <div className = "unscaled-score" class = "flex flex-col justify-center mr-2 mb-2 bg-gray-100 rounded-2xl ml-2">
                             <div class = "text-xs font-semibold mt-3">UNSCALED SCORE</div>
-                            <div class = "text-4xl font-light mb-3">{unscaledscore}</div>
+                            {unscaled_display}
                         </div>
                     </div>
                     <div className = "energy-level-heading" class = "flex bg-gray-200 w-11/12 rounded-3xl mt-3 justify-center ">
@@ -116,11 +144,6 @@ function Energy() {
                         </IconContext.Provider>
                             <div></div>
                     </div> */}
-
-                    
-                    {/* <div className = "info-text" class = "flex leading-3 text-xs font-semibold mt-3.5 ml-80 text-left w-2/4 float-right fixed">
-                        <p class = "">Distractions are a sign of low energy. Crysta analyzes the number of task switches you make and updates this graph every hour, calculating your most and least productive times. Lower = more productive (better for focus), Higher = less productive (better for creativity).</p>
-                    </div> */}
                     <div className = "energy-graph-container" class = "flex-1 flex-col ml-7 mt-12 mr-8 mb-0 w-5/6 h-5/6">
                         <EnergyGraph />
                     </div>
@@ -128,7 +151,7 @@ function Energy() {
             </div>
 
             
-            <div className = "version" class = "text-right text-md text-black font-semibold mr-5 mb-5">v.0.1</div>
+            <div className = "version" class = "text-right text-md text-black font-semibold mr-5 mb-5">MVP - v.0.1</div>
         </div>
     );
 };
