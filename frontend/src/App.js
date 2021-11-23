@@ -14,22 +14,16 @@ function App() {
   const { user, isAuthenticated } = useAuth0();
 
   if (isAuthenticated) {
-    const dataObject = {
+    const usernameObject = {
         username: user.name
     };
-    axios.post('http://127.0.0.1:5000/user', dataObject)
+    axios.post('http://127.0.0.1:5000/user', usernameObject)
         .then((res) => {
       console.log(res.data)
       }).catch(error => {
       console.log(error)
       });
-    axios.post('/send-user', dataObject)
-      .then((res) => {
-        console.log(res.data)
-      }).catch(error => {
-        console.log(error)
-      });
-}
+  }
 
   return (
       <Router>

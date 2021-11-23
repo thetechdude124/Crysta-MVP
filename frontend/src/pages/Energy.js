@@ -2,60 +2,71 @@ import React, { useState } from 'react';
 import './Energy.css';
 import EnergyGraph from './EnergyGraph'
 import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Energy() {
 
+    //Getting username and authentication status
+    const { user, isAuthenticated } = useAuth0();
+
+    //Defining variables for all metrics - most productive time, most creative time, task switches, etc.
     const [productivetime, setProductivetime] = useState();
     const [creativetime, setCreativetime] = useState(); 
     const [taskswitches, setTaskswitches] = useState();
     const [distractingsites, setDistractingsites]  = useState();
     const [timepertask, setTimepertask] = useState();
     const [unscaledscore, setUnscaledscore] = useState();
-
+    //Defining a function that returns the average of an array (necessary for procressing)
     const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
 
-    axios.get('/api/getData').then((response) =>{
-        var data = response.data;
-        const data_values = Object.values(data);
-        const data_array = data_values[1];
-        var task_switches = [];
-        var labels = [];
-        var div_scores = [];
-        var unscaled_scores = [];
-        var average_task_times = [];
-        var n_distracting_tasks = [];
+    //Checks if user is authenticated - if yes, query backend and process data. If no, do nothing.
+    var sendemail = '';
+    if (isAuthenticated) {
 
-        // this.setState({ mongo_data: data_array});
-
-        data_array.forEach(data_array => {
-            labels.push(data_array.hour);
-            task_switches.push(data_array.task_switches);
-            div_scores.push(data_array.divided_energy_score);
-            unscaled_scores.push(data_array.unscaled_energy_score);
-            average_task_times.push(data_array.average_task_time);
-            n_distracting_tasks.push(data_array.distracting_tasks);
+        const email = user.email;
+        sendemail = email;
+        axios.get('/api/getData?username=' + email).then((response) =>{
+            var data = response.data;
+            const data_values = Object.values(data);
+            const data_array = data_values[1];
+            var task_switches = [];
+            var labels = [];
+            var div_scores = [];
+            var unscaled_scores = [];
+            var average_task_times = [];
+            var n_distracting_tasks = [];
+    
+            data_array.forEach(data_array => {
+                labels.push(data_array.hour);
+                task_switches.push(data_array.task_switches);
+                div_scores.push(data_array.divided_energy_score);
+                unscaled_scores.push(data_array.unscaled_energy_score);
+                average_task_times.push(data_array.average_task_time);
+                n_distracting_tasks.push(data_array.distracting_tasks);
+            });
+            
+            setTaskswitches(average(task_switches).toFixed(0));
+            //Finding the min and max of the div_scores array, to find the most creative and productive times
+            var min_score = Math.min(...div_scores);
+            var min_idx = div_scores.indexOf(min_score);
+    
+            var max_score = Math.max(...div_scores);
+            var max_idx = div_scores.indexOf(max_score);
+    
+            setCreativetime(labels[min_idx]);
+            setProductivetime(labels[max_idx]);
+            
+            //Distracting Tasks - average
+            setDistractingsites(average(n_distracting_tasks).toFixed(0))
+            //Average of Average Task Times
+            setTimepertask(average(average_task_times).toFixed(0))
+            //Average of Unscaled Scores
+            setUnscaledscore(average(unscaled_scores).toFixed(0))
         });
-        
-        setTaskswitches(average(task_switches).toFixed(0));
-        //Finding the min and max of the div_scores array, to find the most creative and productive times
-        var min_score = Math.min(...div_scores);
-        var min_idx = div_scores.indexOf(min_score);
+        console.log(sendemail);
+    }
 
-        var max_score = Math.max(...div_scores);
-        var max_idx = div_scores.indexOf(max_score);
-
-        setCreativetime(labels[min_idx]);
-        setProductivetime(labels[max_idx]);
-        
-        //Distracting Tasks - average
-        setDistractingsites(average(n_distracting_tasks).toFixed(0))
-        //Average of Average Task Times
-        setTimepertask(average(average_task_times).toFixed(0))
-        //Average of Unscaled Scores
-        setUnscaledscore(average(unscaled_scores).toFixed(0))
-    });
-
-
+    //Define divs - different elements will be displayed depending on whether the value is undefined
     let prod_div;
     let task_display;
     let distracting_display;
@@ -68,7 +79,7 @@ function Energy() {
         prod_div = <div className = 'most-productive-time' class = 'text-3xl mt-4 font-light'>{productivetime}</div>;
     }
 
-    if (taskswitches == 'NaN') {
+    if (taskswitches === 'NaN') {
         task_display = <div class = "text-4xl font-light mb-3">0</div>;
     } else {
         task_display = <div class = "text-4xl font-light mb-3">{taskswitches}</div>;
@@ -145,7 +156,7 @@ function Energy() {
                             <div></div>
                     </div> */}
                     <div className = "energy-graph-container" class = "flex-1 flex-col ml-7 mt-12 mr-8 mb-0 w-5/6 h-5/6">
-                        <EnergyGraph />
+                        <EnergyGraph sent_useremail = {sendemail}/>
                     </div>
                 </div>
             </div>
