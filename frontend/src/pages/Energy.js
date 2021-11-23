@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Energy.css';
 import EnergyGraph from './EnergyGraph'
 import axios from 'axios';
