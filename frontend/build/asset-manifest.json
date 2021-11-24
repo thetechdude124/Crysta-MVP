@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.90ebca43.chunk.css",
-    "main.js": "/static/js/main.ace6834a.chunk.js",
-    "main.js.map": "/static/js/main.ace6834a.chunk.js.map",
+    "main.css": "/static/css/main.eccdd8ec.chunk.css",
+    "main.js": "/static/js/main.425251b4.chunk.js",
+    "main.js.map": "/static/js/main.425251b4.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f5cfbed7.js",
     "runtime-main.js.map": "/static/js/runtime-main.f5cfbed7.js.map",
     "static/js/2.c95810ec.chunk.js": "/static/js/2.c95810ec.chunk.js",
     "static/js/2.c95810ec.chunk.js.map": "/static/js/2.c95810ec.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.90ebca43.chunk.css.map": "/static/css/main.90ebca43.chunk.css.map",
+    "static/css/main.eccdd8ec.chunk.css.map": "/static/css/main.eccdd8ec.chunk.css.map",
     "static/js/2.c95810ec.chunk.js.LICENSE.txt": "/static/js/2.c95810ec.chunk.js.LICENSE.txt",
     "static/media/CrystaLogo.3734c1e1.svg": "/static/media/CrystaLogo.3734c1e1.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.f5cfbed7.js",
     "static/js/2.c95810ec.chunk.js",
-    "static/css/main.90ebca43.chunk.css",
-    "static/js/main.ace6834a.chunk.js"
+    "static/css/main.eccdd8ec.chunk.css",
+    "static/js/main.425251b4.chunk.js"
   ]
 }

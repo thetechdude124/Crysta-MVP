@@ -42,14 +42,12 @@ router.get('/getData', (req, res) => {
 
   //Get username value
   let username = String(req.query.username);
-  console.log(username);
 
   //Find and process date
   var timezone = (new Date()).getTimezoneOffset() * 60000;
   var localtime = (new Date(Date.now() - timezone)).toISOString().slice(0, -1);
   var query_date = localtime.slice(0,10);
   var query = {username: username, date: query_date};
-  console.log(query)
 
   //Query Date
   Data.find(query, (err, data) => {
