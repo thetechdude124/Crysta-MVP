@@ -156,7 +156,7 @@ function Energy() {
                             <div></div>
                     </div> */}
                     <div className = "energy-graph-container" class = "flex-1 flex-col ml-7 mt-12 mr-8 mb-0 w-5/6 h-5/6">
-                        <EnergyGraph sent_useremail = {sendemail}/>
+                        <EnergyGraph key = {sendemail} sent_useremail = {sendemail}/>
                     </div>
                 </div>
             </div>

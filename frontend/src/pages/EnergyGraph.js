@@ -35,9 +35,6 @@ class EnergyGraph extends Component{
         }
     }
 
-    componentDidUpdate() {
-        if()
-    }
     getDataFromDb = () => {
     }
 
