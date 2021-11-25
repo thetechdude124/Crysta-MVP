@@ -106,12 +106,11 @@ function Dashboard() {
 
     return (
         <div className = "container-energy" class = "flex flex-col top-0 justify-items-center bg-gradient-to-r from-blue-400 via-green-300 to-green-200 h-screen w-screen">
-            <div className = "copyright" class = "text-right mt-3 mr-5 text-sm font-semibold text-black">Copyright Crysta 2021</div>
-            <div className = "intro-container" class = "flex w-5/6">
-                <div className = "Introduction/Greeting" class = "text-2xl font-semibold text-white">Hey there! Let's get things done.</div>    
+            <div className = "intro-container" class = "flex w-11/12 m-auto">
+                <div className = "Introduction/Greeting" class = "text-3xl mt-2 font-semibold text-white">Hey there! Let's get things done.</div>    
             </div>
-            <div className = "insights-energy-container" class = "flex h-5/6 w-5/6 m-auto">
-                <div className = "insights-menu" class = "flex flex-col text-center bg-gray-50 shadow-md rounded-3xl h-full w-3/12 mr-8 m-auto items-center">
+            <div className = "insights-energy-container" class = "flex h-5/6 w-11/12 -mt-2 m-auto">
+                <div className = "insights-menu" class = "flex flex-col text-center bg-gray-50 shadow-md rounded-3xl h-full w-2/12 mr-8 m-auto items-center">
                     <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-2.5 justify-center">
                         <p class = "text-white mt-1 font-semibold text-base">INSIGHTS</p> 
                     </div>
@@ -149,7 +148,7 @@ function Dashboard() {
                         <p class = "text-black mt-3 mb-3 ml-2 mr-2 text-xs">These are the insights we found - the more you use Crysta, the more accurate they get!</p> 
                     </div>
                 </div>
-                <div className = "energy-menu" class = "flex bg-gray-50 shadow-md rounded-3xl h-full w-9/12 m-auto">
+                <div className = "energy-menu" class = "flex bg-gray-50 shadow-md rounded-3xl h-full w-7/12 m-auto">
                     <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-64 rounded-3xl mt-2.5 ml-7 justify-center fixed">
                         <p class = "text-white mt-1 font-semibold text-base">YOUR ENERGY LEVELS</p> 
                     </div>
@@ -163,10 +162,16 @@ function Dashboard() {
                         <EnergyGraph key = {sendemail} sent_useremail = {sendemail}/>
                     </div>
                 </div>
+                <div className = "pomodoro-timer w-1/6 h-2/6">
+
+                </div>
+                <div className = "tasks">
+
+                </div>
             </div>
 
             
-            <div className = "version" class = "text-right text-md text-black font-semibold mr-5 mb-5">MVP - v.0.1</div>
+            <div className = "version" class = "text-right text-sm text-black font-semibold mr-5 mb-5">MVP - v.0.1 | ©Crysta 2021</div>
         </div>
     );
 };
