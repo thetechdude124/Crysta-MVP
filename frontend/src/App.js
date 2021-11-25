@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Login from './Login';
 import Calendar from './pages/Calendar';
 import Tasks from './pages/Tasks';
-import Energy from './pages/Energy';
+import Dashboard from './pages/Dashboard';
 import Logout from './Logout';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
@@ -32,9 +32,9 @@ function App() {
         <SideMenu/>
         <Switch>
 
-          <Route path='/pages/Calendar' component={Calendar}/>
+          <Route path='/pages/Dashboard' component={Dashboard}/>
           <Route path='/pages/Tasks' component={Tasks}/>
-          <Route path='/pages/Energy' component={Energy}/>
+          <Route path='/pages/Calendar' component={Calendar}/>
           <Route path='/pages/Logout'  component={Logout}/>
           
         </Switch>

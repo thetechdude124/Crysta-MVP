@@ -6,9 +6,9 @@ import * as BIcons from 'react-icons/bi';
 
 export const SideMenuData = [
     {
-        title: 'CALENDAR',
-        path: '/pages/Calendar',
-        icon: <BsIcons.BsCalendar/>, 
+        title: 'DASHBOARD',
+        path: '/pages/Dashboard',
+        icon: <BsIcons.BsGraphUp/>, 
         cName: 'side-menu-text'
     },
     {
@@ -18,9 +18,9 @@ export const SideMenuData = [
         cName: 'side-menu-text'
     },
     {
-        title: 'ENERGY',
-        path: '/pages/Energy',
-        icon: <BsIcons.BsGraphUp/>, 
+        title: 'CALENDAR',
+        path: '/pages/Calendar',
+        icon: <BsIcons.BsCalendar/>, 
         cName: 'side-menu-text'
     },
     {

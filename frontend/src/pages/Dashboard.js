@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './Energy.css';
+import './Dashboard.css';
 import EnergyGraph from './EnergyGraph'
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
 
-function Energy() {
+function Dashboard() {
 
     //Getting username and authentication status
     const { user, isAuthenticated } = useAuth0();
@@ -21,6 +21,7 @@ function Energy() {
 
     //Checks if user is authenticated - if yes, query backend and process data. If no, do nothing.
     var sendemail = '';
+
     if (isAuthenticated) {
 
         const email = user.email;
@@ -106,6 +107,9 @@ function Energy() {
     return (
         <div className = "container-energy" class = "flex flex-col top-0 justify-items-center bg-gradient-to-r from-blue-400 via-green-300 to-green-200 h-screen w-screen">
             <div className = "copyright" class = "text-right mt-3 mr-5 text-sm font-semibold text-black">Copyright Crysta 2021</div>
+            <div className = "intro-container" class = "flex w-5/6">
+                <div className = "Introduction/Greeting" class = "text-2xl font-semibold text-white">Hey there! Let's get things done.</div>    
+            </div>
             <div className = "insights-energy-container" class = "flex h-5/6 w-5/6 m-auto">
                 <div className = "insights-menu" class = "flex flex-col text-center bg-gray-50 shadow-md rounded-3xl h-full w-3/12 mr-8 m-auto items-center">
                     <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-2.5 justify-center">
@@ -167,4 +171,4 @@ function Energy() {
     );
 };
 
-export default Energy;
+export default Dashboard;
