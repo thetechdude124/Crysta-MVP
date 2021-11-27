@@ -167,8 +167,8 @@ function Dashboard() {
                         <div className = "pomodoro-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-2.5 justify-center">
                             <p class = "text-white mt-1 font-semibold text-base">POMODORO TIMER</p> 
                         </div>
-                        <div className = "work-session-text" class = "text-sm mt-2">Start a work session.</div>
-                        <div className = "number-sessions-text" class = "text-sm mt-2">You have completed <p className = "number-sessions">5</p> work sessions.</div>
+                        {/* <div className = "work-session-text" class = "text-sm mt-2">Start a work session.</div>
+                        <div className = "number-sessions-text" class = "text-sm mt-2">You have completed <p className = "number-sessions">5</p> work sessions.</div> */}
                     </div>
                     <div className = "tasks" class = "flex bg-gray-50 rounded-3xl h-1/2 w-full m-auto shadow-md mt-3">
 
