@@ -164,11 +164,15 @@ function Dashboard() {
                 </div>
                 <div className = "pomodoro-tasks-container" class = "flex flex-col h-full w-3/12 m-auto ">
                     <div className = "pomodoro-timer" class = "flex flex-col text-center bg-gray-50 rounded-3xl h-1/2 w-full m-auto shadow-md mb-2.5 items-center">
-                        <div className = "pomodoro-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-2.5 justify-center">
+                        <div className = "pomodoro-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-2.5 justify-center text-center">
                             <p class = "text-white mt-1 font-semibold text-base">POMODORO TIMER</p> 
                         </div>
-                        {/* <div className = "work-session-text" class = "text-sm mt-2">Start a work session.</div>
-                        <div className = "number-sessions-text" class = "text-sm mt-2">You have completed <p className = "number-sessions">5</p> work sessions.</div> */}
+                        <div className = "work-session-text" class = "text-sm font-light mt-2 mb-3">Start a work session.</div>
+                        <div className = "timer-element" class = "flex items-center flex-col outline-black justify-center w-11/12 h-2/6 bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 rounded-3xl">
+                            <p className = "time" class = "font-bold text-white text-6xl">25:00</p>
+                            <div>Break</div>
+                        </div>
+                        <div className = "number-sessions-text" class = "flex text-sm mt-3">You've completed <p className = "font-semibold text-green-500 number-sessions ml-1 mr-1">5</p> work sessions today.</div>
                     </div>
                     <div className = "tasks" class = "flex bg-gray-50 rounded-3xl h-1/2 w-full m-auto shadow-md mt-3">
 
