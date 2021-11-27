@@ -167,12 +167,14 @@ function Dashboard() {
                         <div className = "pomodoro-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-2.5 justify-center text-center">
                             <p class = "text-white mt-1 font-semibold text-base">POMODORO TIMER</p> 
                         </div>
-                        <div className = "work-session-text" class = "text-sm font-light mt-2 mb-3">Start a work session.</div>
+                        <div className = "work-session-text" class = "text-sm font-light mt-3 mb-3.5">Start a work session.</div>
                         <div className = "timer-element" class = "flex items-center flex-col outline-black justify-center w-11/12 h-2/6 bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 rounded-3xl">
-                            <p className = "time" class = "font-bold text-white text-6xl">25:00</p>
-                            <div>Break</div>
+                            <p className = "work-time" class = "font-bold text-white text-6xl">25:00</p>
+                        
+                            <div className = "break-time" class = "flex text-white font-semibold text-lg mt-1">Break: <p className = "font-semibold text-blue-200 number-sessions ml-1 mr-1">5</p> MIN</div>
                         </div>
-                        <div className = "number-sessions-text" class = "flex text-sm mt-3">You've completed <p className = "font-semibold text-green-500 number-sessions ml-1 mr-1">5</p> work sessions today.</div>
+                        <button className = "start-button" class = "font-medium text-gray-50 h-10 w-32 bg-blue-400 rounded-3xl hover:bg-green-400 transition duration-250 ease-linear mt-5">START</button>
+                        <div className = "number-sessions-text" class = "flex text-sm mt-4">You've completed <p className = "font-semibold text-green-500 number-sessions ml-1 mr-1">5</p> work sessions today.</div>
                     </div>
                     <div className = "tasks" class = "flex bg-gray-50 rounded-3xl h-1/2 w-full m-auto shadow-md mt-3">
 
