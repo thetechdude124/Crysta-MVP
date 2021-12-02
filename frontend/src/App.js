@@ -27,17 +27,17 @@ function App() {
 
   return (
       <Router>
-        <Route path='/' exact component={Login}/>
-        <Route path= '/Login' component={Login}/>
-        <SideMenu/>
-        <Switch>
+          <Route path='/' exact component={Login}/>
+          <Route path= '/Login' component={Login}/>
+          <SideMenu/>
+          <Switch>
 
-          <Route path='/pages/Dashboard' component={Dashboard}/>
-          <Route path='/pages/Tasks' component={Tasks}/>
-          <Route path='/pages/Calendar' component={Calendar}/>
-          <Route path='/pages/Logout'  component={Logout}/>
-          
-        </Switch>
+            <Route path='/pages/Dashboard' component={Dashboard}/>
+            <Route path='/pages/Tasks' component={Tasks}/>
+            <Route path='/pages/Calendar' component={Calendar}/>
+            <Route path='/pages/Logout'  component={Logout}/>
+            
+          </Switch>
       </Router>
     
   );

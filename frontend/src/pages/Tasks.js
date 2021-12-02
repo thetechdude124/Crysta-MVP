@@ -1,4 +1,5 @@
 import React from 'react';
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 function Tasks() {
   return (
@@ -9,4 +10,6 @@ function Tasks() {
   );
 }
 
-export default Tasks;
+export default withAuthenticationRequired(Tasks, {
+  onRedirecting: () => <div> Hey there! We're just redirecting you 😁</div>,
+})

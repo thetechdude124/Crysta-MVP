@@ -1,4 +1,5 @@
 import React from 'react';
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 function Calendar() {
   return (
@@ -9,4 +10,6 @@ function Calendar() {
   );
 }
 
-export default Calendar;
+export default withAuthenticationRequired(Calendar, {
+  onRedirecting: () => <div> Hey there! We're just redirecting you 😁</div>,
+})

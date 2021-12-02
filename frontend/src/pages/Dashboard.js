@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
-import EnergyGraph from './EnergyGraph'
+import FunctionGraph from './FunctionGraph.js';
+import Pomodoro from './DashboardComponents/Pomodoro';
+import TaskWidget from './DashboardComponents/TaskWidget';
 import axios from 'axios';
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, withAuthenticationRequired} from "@auth0/auth0-react";
 
 function Dashboard() {
 
@@ -16,12 +18,14 @@ function Dashboard() {
     const [distractingsites, setDistractingsites]  = useState();
     const [timepertask, setTimepertask] = useState();
     const [unscaledscore, setUnscaledscore] = useState();
+    const [sendlabels, setSendlabels] = useState();
+    const [senddivscores, setSenddivscores] = useState();
     //Defining a function that returns the average of an array (necessary for procressing)
     const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
 
+    var graph_div;
     //Checks if user is authenticated - if yes, query backend and process data. If no, do nothing.
     var sendemail = '';
-
     if (isAuthenticated) {
 
         const email = user.email;
@@ -45,7 +49,6 @@ function Dashboard() {
                 average_task_times.push(data_array.average_task_time);
                 n_distracting_tasks.push(data_array.distracting_tasks);
             });
-            
             setTaskswitches(average(task_switches).toFixed(0));
             //Finding the min and max of the div_scores array, to find the most creative and productive times
             var min_score = Math.min(...div_scores);
@@ -64,7 +67,9 @@ function Dashboard() {
             //Average of Unscaled Scores
             setUnscaledscore(average(unscaled_scores).toFixed(0))
         });
-        console.log(sendemail);
+        graph_div = <FunctionGraph sendemail = {sendemail} />
+    } else {
+        graph_div = <div class = "flex font-bold text-lg text-center justify-center items-center">Loading...</div>
     }
 
     //Define divs - different elements will be displayed depending on whether the value is undefined
@@ -78,7 +83,7 @@ function Dashboard() {
         prod_div = <div className = 'most-productive-time' class = 'text-sm w-11/12 mt-4 font-light'>This dashboard will be filled automatically every hour - and will get more accurate as you continue to use the Crysta energy tracker!</div>;
     } else {
         prod_div = <div className = 'most-productive-time' class = 'text-3xl mt-4 font-light'>{productivetime}</div>;
-    }
+    };
 
     if (taskswitches === 'NaN') {
         task_display = <div class = "text-4xl font-light mb-3">0</div>;
@@ -124,7 +129,7 @@ function Dashboard() {
                     <div className = "most-creative-time" class = "text-3xl mt-4 font-light">{creativetime}</div>
 
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
-                        <p class = "text-black mt-1.5 font-semibold text-sm">OTHER INSIGHTS</p> 
+                        <p class = "text-black mt-1.5 font-semibold text-sm">OTHER</p> 
                     </div>
                     <div className = "other-metrics" class = "grid grid-cols-2 w-11/12 mt-6 gap-y-4 bg-gray-200 rounded-2xl mb-2.5"> 
                         <div className = "task-switches" class = "flex flex-col justify-center ml-2 mt-2 bg-gray-100 rounded-2xl mr-2">
@@ -152,40 +157,22 @@ function Dashboard() {
                     <div className = "energy-level-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-64 rounded-3xl mt-2.5 ml-7 justify-center fixed">
                         <p class = "text-white mt-1 font-semibold text-base">YOUR ENERGY LEVELS</p> 
                     </div>
-                    {/* <div className = "info-icon">
-                        <IconContext.Provider value={{ color: '#4d4d4d' }}>
-                            <AiOutlineInfoCircle class = "text-md mt-3.5 h-6 w-6 ml-72 fixed"/>
-                        </IconContext.Provider>
-                            <div></div>
-                    </div> */}
                     <div className = "energy-graph-container" class = "flex-1 flex-col ml-7 mt-12 mr-8 mb-0 w-5/6 h-5/6">
-                        <EnergyGraph key = {sendemail} sent_useremail = {sendemail}/>
+                        {/* <EnergyGraph labels = {sendlabels} divscores = {senddivscores}/> */}
+                        {graph_div}
                     </div>
                 </div>
                 <div className = "pomodoro-tasks-container" class = "flex flex-col h-full w-3/12 m-auto ">
-                    <div className = "pomodoro-timer" class = "flex flex-col text-center bg-gray-50 rounded-3xl h-1/2 w-full m-auto shadow-md mb-2.5 items-center">
-                        <div className = "pomodoro-heading" class = "flex bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 h-8 w-11/12 rounded-3xl mt-2.5 justify-center text-center">
-                            <p class = "text-white mt-1 font-semibold text-base">POMODORO TIMER</p> 
-                        </div>
-                        <div className = "work-session-text" class = "text-sm font-light mt-3 mb-3.5">Start a work session.</div>
-                        <div className = "timer-element" class = "flex items-center flex-col outline-black justify-center w-11/12 h-2/6 bg-gradient-to-r from-blue-400 via-blue-400 to-green-300 rounded-3xl">
-                            <p className = "work-time" class = "font-bold text-white text-6xl">25:00</p>
-                        
-                            <div className = "break-time" class = "flex text-white font-semibold text-lg mt-1">Break: <p className = "font-semibold text-blue-200 number-sessions ml-1 mr-1">5</p> MIN</div>
-                        </div>
-                        <button className = "start-button" class = "font-medium text-gray-50 h-10 w-32 bg-blue-400 rounded-3xl hover:bg-green-400 transition duration-250 ease-linear mt-5">START</button>
-                        <div className = "number-sessions-text" class = "flex text-sm mt-4">You've completed <p className = "font-semibold text-green-500 number-sessions ml-1 mr-1">5</p> work sessions today.</div>
-                    </div>
-                    <div className = "tasks" class = "flex bg-gray-50 rounded-3xl h-1/2 w-full m-auto shadow-md mt-3">
-
-                    </div>
+                    <Pomodoro />
+                    <TaskWidget />
                 </div>
             </div>
 
-            
             <div className = "version" class = "text-right text-sm text-black font-semibold mr-5 mb-5">MVP - v.0.2 | ©Crysta 2021</div>
         </div>
     );
 };
 
-export default Dashboard;
+export default withAuthenticationRequired(Dashboard, {
+    onRedirecting: () => <div> Hey there! We're just redirecting you 😁</div>,
+})
