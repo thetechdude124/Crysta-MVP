@@ -18,7 +18,7 @@ function Dashboard() {
     const [unscaledscore, setUnscaledscore] = useState();
     //Defining a function that returns the average of an array (necessary for procressing)
     const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
-
+    
     //Checks if user is authenticated - if yes, query backend and process data. If no, do nothing.
     var sendemail = '';
 
