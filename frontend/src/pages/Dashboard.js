@@ -51,6 +51,7 @@ function Dashboard() {
                 n_distracting_tasks.push(data_array.distracting_tasks);
             });
             setTaskswitches(average(task_switches).toFixed(0));
+
             //Finding the min and max of the div_scores array, to find the most creative and productive times
             var min_score = Math.min(...div_scores);
             var min_idx = div_scores.indexOf(min_score);
@@ -67,6 +68,28 @@ function Dashboard() {
             setTimepertask(average(average_task_times).toFixed(0))
             //Average of Unscaled Scores
             setUnscaledscore(average(unscaled_scores).toFixed(0))
+
+            //Configuring display - displaying up or down arrows to reflect change in metrics
+            let task_change;
+            let time_change;
+            let distracting_change;
+            let unscaled_change;
+
+            //Task switches
+            
+            if (task_switches.at(-1) > task_switches.at(-2)) {
+                
+                task_change = <div className = "change-icon" class = "text-3xl mr-5 mt-2">
+                                <IconContext.Provider value={{ color: '#ffffff' }}>
+                                    <AiFillMinusSquare class = "hover:bg-green-200 rounded-md z-40" onClick = {() => timeChange(-300, "focus")}/>
+                                </IconContext.Provider>
+                              </div>
+
+            } else if (task_switches.at(-1) < task_switches.at(-2)) {
+
+            } else {
+
+            }
         });
         graph_div = <FunctionGraph sendemail = {sendemail} />
     } else {

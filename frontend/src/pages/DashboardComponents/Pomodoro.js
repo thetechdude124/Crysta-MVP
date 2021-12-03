@@ -97,6 +97,12 @@ function Pomodoro() {
         }
     }
 
+    const sendToDB = () => {
+        //Send pomodoro session data to the database -> number of sessions completed 
+        //How would we track the energy levels for that particular session?
+        
+    }
+
     const startTimer = () => {
         notificationHandler();
         let milliseconds = 1000;
@@ -105,8 +111,7 @@ function Pomodoro() {
         let onBreakVariable = onBreak;
         //If the timer is not on:
         if (!timerOn) {
-            //We want to calculate the current time by doing session time - (new date - old date)
-            //do this until the difference between the two dates is the same as the session time
+            //Every 30 miliseconds, we compare the difference between the old date and new date - updating the display.
             let interval = setInterval(() => {
                 date = new Date().getTime();
                 if (date > nextDate) {
