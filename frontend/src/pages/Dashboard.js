@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
+import { IconContext } from 'react-icons';
+import { BsFillArrowUpCircleFill, BsFillArrowDownCircleFill } from "react-icons/bs";
+import { FaEquals } from "react-icons/fa";
 import FunctionGraph from './FunctionGraph.js';
 import Pomodoro from './DashboardComponents/Pomodoro';
 import TaskWidget from './DashboardComponents/TaskWidget';
@@ -22,11 +25,81 @@ function Dashboard() {
     const [senddivscores, setSenddivscores] = useState();
     //Defining a function that returns the average of an array (necessary for procressing)
     const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
+
+    //Function to display up or down icon - depending on the input value
+    const displayChange = (value_array, metric) => {
+
+        let div_value;
+
+        if (metric === "distracting_sites") {
+            if (value_array.at(-1) > value_array.at(-2)) {
+
+                div_value = <div className = "change-icon" class = "text-2xl">
+                                    <IconContext.Provider value={{ color: '#f87171' }}>
+                                        <BsFillArrowUpCircleFill class = "hover:"/>
+                                    </IconContext.Provider>
+                              </div>
+                return div_value;
+
+            } else if (value_array.at(-1) < value_array.at(-2)) {
+                
+                div_value = <div className = "change-icon" class = "text-2xl">
+                                    <IconContext.Provider value={{ color: '#34d399' }}>
+                                        <BsFillArrowDownCircleFill class = "hover:"/>
+                                    </IconContext.Provider>
+                              </div>
+                return div_value;
+
+            } else {
+
+                div_value = <div className = "change-icon" class = "text-2xl">
+                                    <IconContext.Provider value={{ color: '#34d399' }}>
+                                        <FaEquals class = "hover:"/>
+                                    </IconContext.Provider>
+                              </div>
+                return div_value;
+            }
+        } else {
+            if (value_array.at(-1) > value_array.at(-2)) {
+
+                div_value = <div className = "change-icon" class = "text-2xl">
+                                    <IconContext.Provider value={{ color: '#34d399' }}>
+                                        <BsFillArrowUpCircleFill class = "hover:"/>
+                                    </IconContext.Provider>
+                              </div>
+                return div_value;
+
+            } else if (value_array.at(-1) < value_array.at(-2)) {
+                
+                div_value = <div className = "change-icon" class = "text-2xl">
+                                    <IconContext.Provider value={{ color: '#f87171' }}>
+                                        <BsFillArrowDownCircleFill class = "hover:"/>
+                                    </IconContext.Provider>
+                              </div>
+                return div_value;
+
+            } else {
+
+                div_value = <div className = "change-icon" class = "text-2xl">
+                                    <IconContext.Provider value={{ color: '#34d399' }}>
+                                        <FaEquals class = "hover:"/>
+                                    </IconContext.Provider>
+                              </div>
+                return div_value;
+            }
+        }
+    }
   
-    var graph_div;
+    
   
     //Checks if user is authenticated - if yes, query backend and process data. If no, do nothing.
     var sendemail = '';
+    var task_change;
+    var time_change;
+    var distracting_change;
+    var unscaled_change;
+    var graph_div;
+
     if (isAuthenticated) {
 
         const email = user.email;
@@ -70,26 +143,12 @@ function Dashboard() {
             setUnscaledscore(average(unscaled_scores).toFixed(0))
 
             //Configuring display - displaying up or down arrows to reflect change in metrics
-            let task_change;
-            let time_change;
-            let distracting_change;
-            let unscaled_change;
 
-            //Task switches
-            
-            if (task_switches.at(-1) > task_switches.at(-2)) {
-                
-                task_change = <div className = "change-icon" class = "text-3xl mr-5 mt-2">
-                                <IconContext.Provider value={{ color: '#ffffff' }}>
-                                    <AiFillMinusSquare class = "hover:bg-green-200 rounded-md z-40" onClick = {() => timeChange(-300, "focus")}/>
-                                </IconContext.Provider>
-                              </div>
+            task_change = displayChange(taskswitches, 'task_switches');
+            time_change = displayChange(timepertask, 'avg_time_per_task');
+            distracting_change = displayChange(distractingsites, 'distracting_sites');
+            unscaled_change = displayChange(unscaledscore, 'unscaled_energy_score');
 
-            } else if (task_switches.at(-1) < task_switches.at(-2)) {
-
-            } else {
-
-            }
         });
         graph_div = <FunctionGraph sendemail = {sendemail} />
     } else {
@@ -158,7 +217,8 @@ function Dashboard() {
                     <div className = "other-metrics" class = "grid grid-cols-2 w-11/12 mt-6 gap-y-4 bg-gray-200 rounded-2xl mb-2.5"> 
                         <div className = "task-switches" class = "flex flex-col justify-center ml-2 mt-2 bg-gray-100 rounded-2xl mr-2">
                             <div class = "text-xs font-semibold mt-3">TASK SWITCHES</div>
-                            {task_display}
+                            <div class = "score-and-ranking-container">{task_display}{task_change}</div>
+                            
                         </div>
                         <div className = "distracting-sites" class = "flex flex-col justify-center mr-2 mt-2 bg-gray-100 rounded-2xl ml-2">
                             <div class = "text-xs font-semibold mt-3"># DISTRACTING SITES</div>
