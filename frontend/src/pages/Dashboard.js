@@ -21,6 +21,15 @@ function Dashboard() {
     const [distractingsites, setDistractingsites]  = useState();
     const [timepertask, setTimepertask] = useState();
     const [unscaledscore, setUnscaledscore] = useState();
+
+    //Defining variables for <div> change icons 
+    const [taskchange, setTaskchange] = useState();
+    const [timechange, setTimechange] = useState();
+    const [distractingchange, setDistractingchange] = useState();
+    const [unscaledchange, setUnscaledchange] = useState();
+    const [sendemail, setSendemail] = useState();
+    const [graphdiv, setGraphdiv] = useState();
+
     //Defining a function that returns the average of an array (necessary for procressing)
     const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
 
@@ -28,30 +37,24 @@ function Dashboard() {
     const displayChange = (value_array, metric) => {
 
         let div_value;
-
         if (metric === "distracting_sites") {
             if (value_array.at(-1) > value_array.at(-2)) {
-
-                div_value = <div className = "change-icon" class = "text-2xl">
+                div_value = <div className = "change-icon" class = "text-md">
                                     <IconContext.Provider value={{ color: '#f87171' }}>
                                         <BsFillArrowUpCircleFill/>
                                     </IconContext.Provider>
                               </div>
                 return div_value;
-
             } else if (value_array.at(-1) < value_array.at(-2)) {
-                
-                div_value = <div className = "change-icon" class = "text-2xl">
+                div_value = <div className = "change-icon" class = "text-md">
                                     <IconContext.Provider value={{ color: '#34d399' }}>
                                         <BsFillArrowDownCircleFill/>
                                     </IconContext.Provider>
                               </div>
                 return div_value;
-
             } else {
-
-                div_value = <div className = "change-icon" class = "text-2xl">
-                                    <IconContext.Provider value={{ color: '#34d399' }}>
+                div_value = <div className = "change-icon" class = "text-md">
+                                    <IconContext.Provider value={{ color: '#d9d2d2' }}>
                                         <FaEquals/>
                                     </IconContext.Provider>
                               </div>
@@ -59,27 +62,22 @@ function Dashboard() {
             }
         } else {
             if (value_array.at(-1) > value_array.at(-2)) {
-
-                div_value = <div className = "change-icon" class = "text-2xl">
+                div_value = <div className = "change-icon" class = "text-md">
                                     <IconContext.Provider value={{ color: '#34d399' }}>
                                         <BsFillArrowUpCircleFill class = "hover:"/>
                                     </IconContext.Provider>
                               </div>
                 return div_value;
-
             } else if (value_array.at(-1) < value_array.at(-2)) {
-                
-                div_value = <div className = "change-icon" class = "text-2xl">
+                div_value = <div className = "change-icon" class = "text-md">
                                     <IconContext.Provider value={{ color: '#f87171' }}>
                                         <BsFillArrowDownCircleFill class = "hover:"/>
                                     </IconContext.Provider>
                               </div>
                 return div_value;
-
             } else {
-
-                div_value = <div className = "change-icon" class = "text-2xl">
-                                    <IconContext.Provider value={{ color: '#34d399' }}>
+                div_value = <div className = "change-icon" class = "text-md">
+                                    <IconContext.Provider value={{ color: '#d9d2d2' }}>
                                         <FaEquals class = "hover:"/>
                                     </IconContext.Provider>
                               </div>
@@ -88,71 +86,69 @@ function Dashboard() {
         }
     }
   
-    
-  
     //Checks if user is authenticated - if yes, query backend and process data. If no, do nothing.
-    var sendemail = '';
-    var task_change;
-    var time_change;
-    var distracting_change;
-    var unscaled_change;
-    var graph_div;
 
-    if (isAuthenticated) {
-
-        const email = user.email;
-        sendemail = email;
-        axios.get('/api/getData?username=' + email).then((response) =>{
-            var data = response.data;
-            const data_values = Object.values(data);
-            const data_array = data_values[1];
-            var task_switches = [];
-            var labels = [];
-            var div_scores = [];
-            var unscaled_scores = [];
-            var average_task_times = [];
-            var n_distracting_tasks = [];
-    
-            data_array.forEach(data_array => {
-                labels.push(data_array.hour);
-                task_switches.push(data_array.task_switches);
-                div_scores.push(data_array.divided_energy_score);
-                unscaled_scores.push(data_array.unscaled_energy_score);
-                average_task_times.push(data_array.average_task_time);
-                n_distracting_tasks.push(data_array.distracting_tasks);
-            });
-            setTaskswitches(average(task_switches).toFixed(0));
-
-            //Finding the min and max of the div_scores array, to find the most creative and productive times
-            var min_score = Math.min(...div_scores);
-            var min_idx = div_scores.indexOf(min_score);
-    
-            var max_score = Math.max(...div_scores);
-            var max_idx = div_scores.indexOf(max_score);
-    
-            setCreativetime(labels[min_idx]);
-            setProductivetime(labels[max_idx]);
+    useEffect(() => {
+        const checkAuth = async() => {
+            if (isAuthenticated) {
+                const email = user.email;
+                var stringemail = email;
+                setSendemail(stringemail);
+                axios.get('/api/getData?username=' + email).then((response) =>{
+                    var data = response.data;
+                    const data_values = Object.values(data);
+                    const data_array = data_values[1];
+                    var task_switches = [];
+                    var labels = [];
+                    var div_scores = [];
+                    var unscaled_scores = [];
+                    var average_task_times = [];
+                    var n_distracting_tasks = [];
             
-            //Distracting Tasks - average
-            setDistractingsites(average(n_distracting_tasks).toFixed(0))
-            //Average of Average Task Times
-            setTimepertask(average(average_task_times).toFixed(0))
-            //Average of Unscaled Scores
-            setUnscaledscore(average(unscaled_scores).toFixed(0))
-
-            //Configuring display - displaying up or down arrows to reflect change in metrics
-
-            task_change = displayChange(task_switches, 'task_switches');
-            time_change = displayChange(average_task_times, 'avg_time_per_task');
-            distracting_change = displayChange(n_distracting_tasks, 'distracting_sites');
-            unscaled_change = displayChange(unscaled_scores, 'unscaled_energy_score');
-
-        });
-        graph_div = <FunctionGraph sendemail = {sendemail} />
-    } else {
-        graph_div = <div class = "flex font-bold text-lg text-center justify-center items-center">Loading...</div>
-    }
-
+                    data_array.forEach(data_array => {
+                        labels.push(data_array.hour);
+                        task_switches.push(data_array.task_switches);
+                        div_scores.push(data_array.divided_energy_score);
+                        unscaled_scores.push(data_array.unscaled_energy_score);
+                        average_task_times.push(data_array.average_task_time);
+                        n_distracting_tasks.push(data_array.distracting_tasks);
+                    });
+                    setTaskswitches(average(task_switches).toFixed(0));
+        
+                    //Finding the min and max of the div_scores array, to find the most creative and productive times
+                    var min_score = Math.min(...div_scores);
+                    var min_idx = div_scores.indexOf(min_score);
+            
+                    var max_score = Math.max(...div_scores);
+                    var max_idx = div_scores.indexOf(max_score);
+            
+                    setCreativetime(labels[min_idx]);
+                    setProductivetime(labels[max_idx]);
+                    
+                    //Distracting Tasks - average
+                    setDistractingsites(average(n_distracting_tasks).toFixed(0))
+                    //Average of Average Task Times
+                    setTimepertask(average(average_task_times).toFixed(0))
+                    //Average of Unscaled Scores
+                    setUnscaledscore(average(unscaled_scores).toFixed(0))
+        
+                    //Configuring display - displaying up or down arrows to reflect change in metrics
+        
+                    setTaskchange(displayChange(task_switches, 'task_switches'));
+                    setTimechange(displayChange(average_task_times, 'avg_time_per_task'));
+                    setDistractingchange(displayChange(n_distracting_tasks, 'distracting_sites'));
+                    setUnscaledchange(displayChange(unscaled_scores, 'unscaled_energy_score'));
+        
+                });
+                setGraphdiv(<FunctionGraph sendemail = {sendemail} />);
+            } else {
+                setGraphdiv(<div class = "flex font-bold text-lg text-center justify-center items-center">Loading...</div>);
+            }
+        }
+        checkAuth();
+    }, [])
+    
+    console.log(sendemail);
     //Define divs - different elements will be displayed depending on whether the value is undefined
     let prod_div;
     let task_display;
@@ -167,27 +163,27 @@ function Dashboard() {
     };
 
     if (taskswitches === 'NaN') {
-        task_display = <div class = "text-4xl font-light mb-3">0</div>;
+        task_display = <div class = "text-3xl font-light mb-3">0</div>;
     } else {
-        task_display = <div class = "text-4xl font-light mb-3">{taskswitches}</div>;
+        task_display = <div class = "text-3xl font-light mb-3">{taskswitches}</div>;
     }
 
     if (distractingsites === 'NaN') {
-        distracting_display = <div class = "text-4xl font-light mb-3">0</div>;
+        distracting_display = <div class = "text-3xl font-light mb-3">0</div>;
     } else {
-        distracting_display = <div class = "text-4xl font-light mb-3">{distractingsites}</div>;
+        distracting_display = <div class = "text-3xl font-light mb-3">{distractingsites}</div>;
     }
 
     if (timepertask === 'NaN') {
-        time_display = <div class = "text-4xl font-light mb-3">0</div>;
+        time_display = <div class = "text-3xl font-light mb-3">0</div>;
     } else {
-        time_display = <div class = "text-4xl font-light mb-3">{timepertask}</div>;
+        time_display = <div class = "text-3xl font-light mb-3">{timepertask}</div>;
     }
 
     if (unscaledscore === 'NaN') {
-        unscaled_display = <div class = "text-4xl font-light mb-3">0</div>;
+        unscaled_display = <div class = "text-3xl font-light mb-3">0</div>;
     } else {
-        unscaled_display = <div class = "text-4xl font-light mb-3">{unscaledscore}</div>;
+        unscaled_display = <div class = "text-3xl font-light mb-3">{unscaledscore}</div>;
     }
 
     return (
@@ -210,24 +206,24 @@ function Dashboard() {
                     <div className = "most-creative-time" class = "text-3xl mt-4 font-light">{creativetime}</div>
 
                     <div className = "energy-level-heading" class = "flex bg-gray-200 h-8 w-11/12 rounded-3xl mt-5 justify-center ">
-                        <p class = "text-black mt-1.5 font-semibold text-sm">OTHER</p> 
+                        <p class = "text-black mt-1.5 font-semibold text-sm">OTHER INSIGHTS</p> 
                     </div>
                     <div className = "other-metrics" class = "grid grid-cols-2 w-11/12 mt-6 gap-y-4 bg-gray-200 rounded-2xl mb-2.5"> 
-                        <div className = "task-switches" class = "flex flex-col justify-center ml-2 mt-2 bg-gray-100 rounded-2xl mr-2">
+                        <div className = "task-switches" class = "flex flex-col items-center justify-center ml-2 mt-2 bg-gray-100 rounded-2xl mr-2">
                             <div class = "text-xs font-semibold mt-3">TASK SWITCHES</div>
-                            <div className = "score-and-ranking-container" class = "flex-row">{task_display}{task_change}</div>
+                            <div className = "score-and-ranking-container" class = "flex flex-row items-center">{task_display}{taskchange}</div>
                         </div>
-                        <div className = "distracting-sites" class = "flex flex-col justify-center mr-2 mt-2 bg-gray-100 rounded-2xl ml-2">
-                            <div class = "text-xs font-semibold mt-3"># DISTRACTING SITES</div>
-                            <div className = "score-and-ranking-container" class = "flex-row">{distracting_display}{distracting_change}</div>
+                        <div className = "distracting-sites" class = "flex flex-col justify-center items-center mr-2 mt-2 bg-gray-100 rounded-2xl ml-2">
+                            <div class = "text-xs font-semibold mt-3">DISTRACTING SITES</div>
+                            <div className = "score-and-ranking-container" class = "flex flex-row items-center">{distracting_display}{distractingchange}</div>
                         </div>
-                        <div className = "time-per-task" class = "flex flex-col justify-center ml-2 mb-2 bg-gray-100 rounded-2xl mr-2">
+                        <div className = "time-per-task" class = "flex flex-col justify-center items-center ml-2 mb-2 bg-gray-100 rounded-2xl mr-2">
                             <div class = "text-xs font-semibold mt-3">SECONDS PER TASK</div>
-                            <div className = "score-and-ranking-container" class = "flex-row">{time_display}{time_change}</div>
+                            <div className = "score-and-ranking-container" class = "flex flex-row">{time_display}{timechange}</div>
                         </div>
-                        <div className = "unscaled-score" class = "flex flex-col justify-center mr-2 mb-2 bg-gray-100 rounded-2xl ml-2">
+                        <div className = "unscaled-score" class = "flex flex-col justify-center items-center mr-2 mb-2 bg-gray-100 rounded-2xl ml-2">
                             <div class = "text-xs font-semibold mt-3">UNSCALED SCORE</div>
-                            <div className = "score-and-ranking-container" class = "flex-row">{unscaled_display}{unscaled_change}</div>
+                            <div className = "score-and-ranking-container" class = "flex flex-row">{unscaled_display}{unscaledchange}</div>
                         </div>
                     </div>
                     <div className = "energy-level-heading" class = "flex bg-gray-200 w-11/12 rounded-3xl mt-3 justify-center ">
@@ -240,7 +236,7 @@ function Dashboard() {
                     </div>
                     <div className = "energy-graph-container" class = "flex-1 flex-col ml-7 mt-12 mr-8 mb-0 w-5/6 h-5/6">
                         {/* <EnergyGraph labels = {sendlabels} divscores = {senddivscores}/> */}
-                        {graph_div}
+                        {graphdiv}
                     </div>
                 </div>
                 <div className = "pomodoro-tasks-container" class = "flex flex-col h-full w-3/12 m-auto ">

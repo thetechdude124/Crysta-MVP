@@ -46,10 +46,7 @@ router.get('/getData', (req, res) => {
   //Find and process date
   var timezone = (new Date()).getTimezoneOffset() * 60000;
   var localtime = (new Date(Date.now() - timezone)).toISOString().slice(0, -1);
-  console.log(timezone);
-  console.log(localtime);
   var query_date = localtime.slice(0,10);
-  console.log(query_date)
   var query = {username: username, date: query_date};
 
   //Query Date
