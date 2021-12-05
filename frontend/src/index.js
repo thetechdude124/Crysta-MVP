@@ -12,11 +12,14 @@ ReactDOM.render(
       domain="crysta.us.auth0.com"
       clientId="7wM95Dzz4zhafR6dCBB6PhZdyvKQgDMH"
       //Development
-      // redirectUri="http://localhost:3000/pages/Dashboard/continue?state=THE_ORIGINAL_STATE"
+      redirectUri="http://localhost:3000/pages/Dashboard/continue?state=THE_ORIGINAL_STATE"
+      //Staging
       // redirectUri="https://crysta-staging.herokuapp.com/pages/Dashboard/continue?state=THE_ORIGINAL_STATE"
+      //Production
       // redirectUri="https://crysta-app.herokuapp.com/pages/Dashboard/continue?state=THE_ORIGINAL_STATE"
       
     >
       <App />
     </Auth0Provider>,
-    document.getElementById(
+    document.getElementById('root')
+);

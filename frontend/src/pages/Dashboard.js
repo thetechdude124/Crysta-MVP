@@ -21,8 +21,6 @@ function Dashboard() {
     const [distractingsites, setDistractingsites]  = useState();
     const [timepertask, setTimepertask] = useState();
     const [unscaledscore, setUnscaledscore] = useState();
-    const [sendlabels, setSendlabels] = useState();
-    const [senddivscores, setSenddivscores] = useState();
     //Defining a function that returns the average of an array (necessary for procressing)
     const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
 
@@ -36,7 +34,7 @@ function Dashboard() {
 
                 div_value = <div className = "change-icon" class = "text-2xl">
                                     <IconContext.Provider value={{ color: '#f87171' }}>
-                                        <BsFillArrowUpCircleFill class = "hover:"/>
+                                        <BsFillArrowUpCircleFill/>
                                     </IconContext.Provider>
                               </div>
                 return div_value;
@@ -45,7 +43,7 @@ function Dashboard() {
                 
                 div_value = <div className = "change-icon" class = "text-2xl">
                                     <IconContext.Provider value={{ color: '#34d399' }}>
-                                        <BsFillArrowDownCircleFill class = "hover:"/>
+                                        <BsFillArrowDownCircleFill/>
                                     </IconContext.Provider>
                               </div>
                 return div_value;
@@ -54,7 +52,7 @@ function Dashboard() {
 
                 div_value = <div className = "change-icon" class = "text-2xl">
                                     <IconContext.Provider value={{ color: '#34d399' }}>
-                                        <FaEquals class = "hover:"/>
+                                        <FaEquals/>
                                     </IconContext.Provider>
                               </div>
                 return div_value;
@@ -144,10 +142,10 @@ function Dashboard() {
 
             //Configuring display - displaying up or down arrows to reflect change in metrics
 
-            task_change = displayChange(taskswitches, 'task_switches');
-            time_change = displayChange(timepertask, 'avg_time_per_task');
-            distracting_change = displayChange(distractingsites, 'distracting_sites');
-            unscaled_change = displayChange(unscaledscore, 'unscaled_energy_score');
+            task_change = displayChange(task_switches, 'task_switches');
+            time_change = displayChange(average_task_times, 'avg_time_per_task');
+            distracting_change = displayChange(n_distracting_tasks, 'distracting_sites');
+            unscaled_change = displayChange(unscaled_scores, 'unscaled_energy_score');
 
         });
         graph_div = <FunctionGraph sendemail = {sendemail} />
@@ -217,20 +215,19 @@ function Dashboard() {
                     <div className = "other-metrics" class = "grid grid-cols-2 w-11/12 mt-6 gap-y-4 bg-gray-200 rounded-2xl mb-2.5"> 
                         <div className = "task-switches" class = "flex flex-col justify-center ml-2 mt-2 bg-gray-100 rounded-2xl mr-2">
                             <div class = "text-xs font-semibold mt-3">TASK SWITCHES</div>
-                            <div class = "score-and-ranking-container">{task_display}{task_change}</div>
-                            
+                            <div className = "score-and-ranking-container" class = "flex-row">{task_display}{task_change}</div>
                         </div>
                         <div className = "distracting-sites" class = "flex flex-col justify-center mr-2 mt-2 bg-gray-100 rounded-2xl ml-2">
                             <div class = "text-xs font-semibold mt-3"># DISTRACTING SITES</div>
-                            {distracting_display}
+                            <div className = "score-and-ranking-container" class = "flex-row">{distracting_display}{distracting_change}</div>
                         </div>
                         <div className = "time-per-task" class = "flex flex-col justify-center ml-2 mb-2 bg-gray-100 rounded-2xl mr-2">
                             <div class = "text-xs font-semibold mt-3">SECONDS PER TASK</div>
-                            {time_display}
+                            <div className = "score-and-ranking-container" class = "flex-row">{time_display}{time_change}</div>
                         </div>
                         <div className = "unscaled-score" class = "flex flex-col justify-center mr-2 mb-2 bg-gray-100 rounded-2xl ml-2">
                             <div class = "text-xs font-semibold mt-3">UNSCALED SCORE</div>
-                            {unscaled_display}
+                            <div className = "score-and-ranking-container" class = "flex-row">{unscaled_display}{unscaled_change}</div>
                         </div>
                     </div>
                     <div className = "energy-level-heading" class = "flex bg-gray-200 w-11/12 rounded-3xl mt-3 justify-center ">
