@@ -27,7 +27,6 @@ function Dashboard() {
     const [timechange, setTimechange] = useState();
     const [distractingchange, setDistractingchange] = useState();
     const [unscaledchange, setUnscaledchange] = useState();
-    const [sendemail, setSendemail] = useState();
     const [graphdiv, setGraphdiv] = useState();
 
     //Defining a function that returns the average of an array (necessary for procressing)
@@ -39,21 +38,21 @@ function Dashboard() {
         let div_value;
         if (metric === "distracting_sites") {
             if (value_array.at(-1) > value_array.at(-2)) {
-                div_value = <div className = "change-icon" class = "text-md">
+                div_value = <div className = "change-icon" class = "text-md ml-1 mb-0.5">
                                     <IconContext.Provider value={{ color: '#f87171' }}>
                                         <BsFillArrowUpCircleFill/>
                                     </IconContext.Provider>
                               </div>
                 return div_value;
             } else if (value_array.at(-1) < value_array.at(-2)) {
-                div_value = <div className = "change-icon" class = "text-md">
+                div_value = <div className = "change-icon" class = "text-md ml-1 mb-0.5">
                                     <IconContext.Provider value={{ color: '#34d399' }}>
                                         <BsFillArrowDownCircleFill/>
                                     </IconContext.Provider>
                               </div>
                 return div_value;
             } else {
-                div_value = <div className = "change-icon" class = "text-md">
+                div_value = <div className = "change-icon" class = "text-sm ml-1 mb-0.5">
                                     <IconContext.Provider value={{ color: '#d9d2d2' }}>
                                         <FaEquals/>
                                     </IconContext.Provider>
@@ -62,21 +61,21 @@ function Dashboard() {
             }
         } else {
             if (value_array.at(-1) > value_array.at(-2)) {
-                div_value = <div className = "change-icon" class = "text-md">
+                div_value = <div className = "change-icon" class = "text-md ml-1 mb-0.5">
                                     <IconContext.Provider value={{ color: '#34d399' }}>
                                         <BsFillArrowUpCircleFill class = "hover:"/>
                                     </IconContext.Provider>
                               </div>
                 return div_value;
             } else if (value_array.at(-1) < value_array.at(-2)) {
-                div_value = <div className = "change-icon" class = "text-md">
+                div_value = <div className = "change-icon" class = "text-md ml-1 mb-0.5">
                                     <IconContext.Provider value={{ color: '#f87171' }}>
                                         <BsFillArrowDownCircleFill class = "hover:"/>
                                     </IconContext.Provider>
                               </div>
                 return div_value;
             } else {
-                div_value = <div className = "change-icon" class = "text-md">
+                div_value = <div className = "change-icon" class = "text-sm ml-1 mb-0.5">
                                     <IconContext.Provider value={{ color: '#d9d2d2' }}>
                                         <FaEquals class = "hover:"/>
                                     </IconContext.Provider>
@@ -93,7 +92,6 @@ function Dashboard() {
             if (isAuthenticated) {
                 const email = user.email;
                 var stringemail = email;
-                setSendemail(stringemail);
                 axios.get('/api/getData?username=' + email).then((response) =>{
                     var data = response.data;
                     const data_values = Object.values(data);
@@ -140,7 +138,8 @@ function Dashboard() {
                     setUnscaledchange(displayChange(unscaled_scores, 'unscaled_energy_score'));
         
                 });
-                setGraphdiv(<FunctionGraph sendemail = {sendemail} />);
+                console.log(stringemail);
+                setGraphdiv(<FunctionGraph sendemail = {stringemail} />);
             } else {
                 setGraphdiv(<div class = "flex font-bold text-lg text-center justify-center items-center">Loading...</div>);
             }
@@ -148,7 +147,6 @@ function Dashboard() {
         checkAuth();
     }, [])
     
-    console.log(sendemail);
     //Define divs - different elements will be displayed depending on whether the value is undefined
     let prod_div;
     let task_display;
@@ -163,27 +161,27 @@ function Dashboard() {
     };
 
     if (taskswitches === 'NaN') {
-        task_display = <div class = "text-3xl font-light mb-3">0</div>;
+        task_display = <div class = "text-3xl font-light mb-2">0</div>;
     } else {
-        task_display = <div class = "text-3xl font-light mb-3">{taskswitches}</div>;
+        task_display = <div class = "text-3xl font-light mb-2">{taskswitches}</div>;
     }
 
     if (distractingsites === 'NaN') {
-        distracting_display = <div class = "text-3xl font-light mb-3">0</div>;
+        distracting_display = <div class = "text-3xl font-light mb-2">0</div>;
     } else {
-        distracting_display = <div class = "text-3xl font-light mb-3">{distractingsites}</div>;
+        distracting_display = <div class = "text-3xl font-light mb-2">{distractingsites}</div>;
     }
 
     if (timepertask === 'NaN') {
-        time_display = <div class = "text-3xl font-light mb-3">0</div>;
+        time_display = <div class = "text-3xl font-light mb-2">0</div>;
     } else {
-        time_display = <div class = "text-3xl font-light mb-3">{timepertask}</div>;
+        time_display = <div class = "text-3xl font-light mb-2">{timepertask}</div>;
     }
 
     if (unscaledscore === 'NaN') {
-        unscaled_display = <div class = "text-3xl font-light mb-3">0</div>;
+        unscaled_display = <div class = "text-3xl font-light mb-2">0</div>;
     } else {
-        unscaled_display = <div class = "text-3xl font-light mb-3">{unscaledscore}</div>;
+        unscaled_display = <div class = "text-3xl font-light mb-2">{unscaledscore}</div>;
     }
 
     return (
@@ -211,19 +209,19 @@ function Dashboard() {
                     <div className = "other-metrics" class = "grid grid-cols-2 w-11/12 mt-6 gap-y-4 bg-gray-200 rounded-2xl mb-2.5"> 
                         <div className = "task-switches" class = "flex flex-col items-center justify-center ml-2 mt-2 bg-gray-100 rounded-2xl mr-2">
                             <div class = "text-xs font-semibold mt-3">TASK SWITCHES</div>
-                            <div className = "score-and-ranking-container" class = "flex flex-row items-center">{task_display}{taskchange}</div>
+                            <div className = "score-and-ranking-container" class = "flex justify-between items-center w-12/12">{task_display}{taskchange}</div>
                         </div>
                         <div className = "distracting-sites" class = "flex flex-col justify-center items-center mr-2 mt-2 bg-gray-100 rounded-2xl ml-2">
-                            <div class = "text-xs font-semibold mt-3">DISTRACTING SITES</div>
+                            <div class = "text-xs font-semibold mt-3"># DISTRACTING SITES</div>
                             <div className = "score-and-ranking-container" class = "flex flex-row items-center">{distracting_display}{distractingchange}</div>
                         </div>
                         <div className = "time-per-task" class = "flex flex-col justify-center items-center ml-2 mb-2 bg-gray-100 rounded-2xl mr-2">
-                            <div class = "text-xs font-semibold mt-3">SECONDS PER TASK</div>
-                            <div className = "score-and-ranking-container" class = "flex flex-row">{time_display}{timechange}</div>
+                            <div class = "text-xs font-semibold mt-3">SECONDS SPENT PER TASK</div>
+                            <div className = "score-and-ranking-container" class = "flex flex-row items-center">{time_display}{timechange}</div>
                         </div>
                         <div className = "unscaled-score" class = "flex flex-col justify-center items-center mr-2 mb-2 bg-gray-100 rounded-2xl ml-2">
-                            <div class = "text-xs font-semibold mt-3">UNSCALED SCORE</div>
-                            <div className = "score-and-ranking-container" class = "flex flex-row">{unscaled_display}{unscaledchange}</div>
+                            <div class = "text-xs font-semibold mt-3">SCORE WITHOUT DISTRACTIONS</div>
+                            <div className = "score-and-ranking-container" class = "flex flex-row items-center">{unscaled_display}{unscaledchange}</div>
                         </div>
                     </div>
                     <div className = "energy-level-heading" class = "flex bg-gray-200 w-11/12 rounded-3xl mt-3 justify-center ">
@@ -235,7 +233,6 @@ function Dashboard() {
                         <p class = "text-white mt-1 font-semibold text-base">YOUR ENERGY LEVELS</p> 
                     </div>
                     <div className = "energy-graph-container" class = "flex-1 flex-col ml-7 mt-12 mr-8 mb-0 w-5/6 h-5/6">
-                        {/* <EnergyGraph labels = {sendlabels} divscores = {senddivscores}/> */}
                         {graphdiv}
                     </div>
                 </div>
