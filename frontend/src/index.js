@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Login from './Login';
 import { Auth0Provider } from "@auth0/auth0-react";
 
 
