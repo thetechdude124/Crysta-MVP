@@ -49,11 +49,13 @@ router.get('/getData', (req, res) => {
   var localtime = (new Date(Date.now() - timezone)).toISOString().slice(0, -1);
   var query_date = localtime.slice(0,10);
   
-  //Check to see if this request is being made to display energy scores or maintain tasks/pomodoro elements
+  //Check to see if this request is being made to display energy scores or maintain pomodoro/tasks elements
   if (data_source === 'undefined') {
     var query = {username: username, date: query_date};
-  } else if (data_source === 'web-app') {
+  } else if (data_source === 'pomodoro') {
     var query = {username: username, date: query_date, source: data_source};
+  } else if (data_source === 'tasks') {
+    var query = {username: username, source: data_source};
   }
 
   //Query

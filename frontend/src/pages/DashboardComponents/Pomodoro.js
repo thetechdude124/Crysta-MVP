@@ -1,5 +1,5 @@
 import { HackTimer } from 'hacktimer';
-import React, {Component, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle, AiFillPlusSquare, AiFillMinusSquare } from "react-icons/ai";
 import { IconContext } from 'react-icons';
 import chime from './Pomodoro_Chime.mp3';
@@ -7,9 +7,10 @@ import logo from './CrystaLogo.svg';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
 
-function Pomodoro() {
+function Pomodoro(props) {
 
-    const { user, isAuthenticated } = useAuth0;
+    //Change this to a prop
+    const sendemail = props.user_email;
 
     //Setting up variables for time, break, and states
     const [timedisplay, setTimedisplay] = useState(25*60);
@@ -18,18 +19,30 @@ function Pomodoro() {
     const [onBreak, setOnBreak] = useState(false);
     const [pomodorochime, setPomodorochime] = useState(new Audio(chime));
     const [sessionCounter, setSessioncounter] = useState(0);
+    const [sessionscompleted, setSessionscompleted] = useState(0);
+    const [id, setID] = useState();
+
+    useEffect(() => {
+        const getSessioncount = async() => {
+            axios.get('/api/getData?username=' + sendemail + 'source=pomodoro').then((response) => {
+                var data = response.data;
+                const data_values = Object.values(data);
+                const data_array = data_values[1];
+                var session_count = []
+                data_array.forEach(data_array => {
+                    session_count.push(data_array.sessions_completed);
+                });
+                setSessionscompleted(session_count[1]);
+            });
+        }
+        getSessioncount();
+    }, [])
 
     const playSound = () => {
         pomodorochime.currentTime = 0;
         pomodorochime.volume = 1;
         pomodorochime.play();
     }
-
-    // const postData = () => {
-    //     if (isAuthenticated) {
-    //         axios.post
-    //     }
-    // }
 
     const convertTime = (time) => {
         let n_minutes = Math.floor(time/60);
@@ -52,7 +65,7 @@ function Pomodoro() {
             setBreaktime((prev) => prev + amount);
 
         } else if (destination === "focus") {
-            if (timedisplay <= 300 && amount < 0) {
+            if (timedisplay <= 60 && amount < 0) {
                 return;
             }
             setTimedisplay((prev) => prev + amount);
@@ -122,13 +135,14 @@ function Pomodoro() {
                             var timezone = (new Date()).getTimezoneOffset() * 60000;
                             var localtime = (new Date(Date.now() - timezone)).toISOString().slice(0, -1);
                             var query_date = localtime.slice(0,10);
+                            //Save session data by creating a new document for that day or updating an existing one
                             if (sessionCounter === 0) {
                                 setSessioncounter(sessionCounter + 1);
                                 const data = {
-                                    username: user.name,
+                                    username: sendemail,
                                     date: query_date,
                                     sessions_completed: sessionCounter,
-                                    source: "web-app"
+                                    source: "pomodoro"
                                 };
                                 axios.post('/api/putData', data)
                                     .then((res) => {
@@ -136,8 +150,30 @@ function Pomodoro() {
                                 }).catch(error => {
                                 console.log(error)
                                 });
-                            } else {
+                            } else if (sessionCounter > 0){
                                 setSessioncounter(sessionCounter + 1);
+                                const data = {
+                                    username: sendemail,
+                                    date: query_date,
+                                    sessions_completed: sessionCounter,
+                                    source: "pomodoro"
+                                };
+                                axios.get('/api/getData?username=' + sendemail + '&source=pomodoro').then((response) => {
+                                    var data = response.data;
+                                    const data_values = Object.values(data);
+                                    const data_array = data_values[1];
+                                    var id_array = []
+                                    data_array.forEach(data_array => {
+                                        id_array.push(data_array._id);
+                                    });
+                                    setID(id_array[1]);
+                                });
+                                axios.post('/api/updateData', {id, data})
+                                    .then((res) => {
+                                        console.log(res.data)
+                                    }).catch(error => {
+                                        console.log(error)
+                                    });
                             }
                             onBreakVariable = true;
                             setOnBreak(true);
@@ -180,7 +216,7 @@ function Pomodoro() {
             <div className = "icons-display" class = "flex items-center">
                 <div className = "plus-icon" class = "text-3xl mr-5 mt-2">
                     <IconContext.Provider value={{ color: '#ffffff' }}>
-                        <AiFillMinusSquare class = "hover:bg-green-200 rounded-md z-40" onClick = {() => timeChange(-300, "focus")}/>
+                        <AiFillMinusSquare class = "hover:bg-green-200 rounded-md z-40" onClick = {() => timeChange(-60, "focus")}/>
                     </IconContext.Provider>
                 </div>
                 <p className = "work-time" class = "font-bold text-white text-6xl">{convertTime(timedisplay)}</p>
@@ -202,7 +238,7 @@ function Pomodoro() {
                 )}
             </button>
         </div>
-        <div className = "number-sessions-text" class = "flex text-sm mt-4">You've completed <p className = "font-semibold text-green-500 number-sessions ml-1 mr-1">{sessionCounter}</p> work sessions today.</div>
+        <div className = "number-sessions-text" class = "flex text-sm mt-4">You've completed <p className = "font-semibold text-green-500 number-sessions ml-1 mr-1">{sessionscompleted}</p> work sessions today.</div>
     </div>
     );
 }

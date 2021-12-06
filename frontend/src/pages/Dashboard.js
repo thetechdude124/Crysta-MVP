@@ -28,6 +28,7 @@ function Dashboard() {
     const [distractingchange, setDistractingchange] = useState();
     const [unscaledchange, setUnscaledchange] = useState();
     const [graphdiv, setGraphdiv] = useState();
+    const [pomodorodiv, setPomodorodiv] = useState();
 
     //Defining a function that returns the average of an array (necessary for procressing)
     const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
@@ -140,8 +141,10 @@ function Dashboard() {
                 });
                 console.log(stringemail);
                 setGraphdiv(<FunctionGraph sendemail = {stringemail} />);
+                setPomodorodiv(<Pomodoro user_email = {stringemail}/>)
             } else {
                 setGraphdiv(<div class = "flex font-bold text-lg text-center justify-center items-center">Loading...</div>);
+                setPomodorodiv(<div class = "flex font-bold text-lg text-center justify-center items-center">Loading...</div>);
             }
         }
         checkAuth();
@@ -237,7 +240,7 @@ function Dashboard() {
                     </div>
                 </div>
                 <div className = "pomodoro-tasks-container" class = "flex flex-col h-full w-3/12 m-auto ">
-                    <Pomodoro />
+                    {pomodorodiv}
                     <TaskWidget />
                 </div>
             </div>
