@@ -42,14 +42,21 @@ router.get('/getData', (req, res) => {
 
   //Get username value
   let username = String(req.query.username);
+  let data_source = String(req.query.source);
 
   //Find and process date
   var timezone = (new Date()).getTimezoneOffset() * 60000;
   var localtime = (new Date(Date.now() - timezone)).toISOString().slice(0, -1);
   var query_date = localtime.slice(0,10);
-  var query = {username: username, date: query_date};
+  
+  //Check to see if this request is being made to display energy scores or maintain tasks/pomodoro elements
+  if (data_source === 'undefined') {
+    var query = {username: username, date: query_date};
+  } else if (data_source === 'web-app') {
+    var query = {username: username, date: query_date, source: data_source};
+  }
 
-  //Query Date
+  //Query
   Data.find(query, (err, data) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true, data: data });
@@ -76,7 +83,7 @@ router.delete('/deleteData', (req, res) => {
   });
 });
 
-// this is our create methid
+// this is our create method
 // this method adds new data in our database
 router.post('/putData', (req, res) => {
   let data = new Data();

@@ -119,7 +119,26 @@ function Pomodoro() {
                         if (prev <= 0 && !onBreakVariable) {
                             playSound();
                             breakNotification();
-                            setSessioncounter(sessionCounter + 1);
+                            var timezone = (new Date()).getTimezoneOffset() * 60000;
+                            var localtime = (new Date(Date.now() - timezone)).toISOString().slice(0, -1);
+                            var query_date = localtime.slice(0,10);
+                            if (sessionCounter === 0) {
+                                setSessioncounter(sessionCounter + 1);
+                                const data = {
+                                    username: user.name,
+                                    date: query_date,
+                                    sessions_completed: sessionCounter,
+                                    source: "web-app"
+                                };
+                                axios.post('/api/putData', data)
+                                    .then((res) => {
+                                console.log(res.data)
+                                }).catch(error => {
+                                console.log(error)
+                                });
+                            } else {
+                                setSessioncounter(sessionCounter + 1);
+                            }
                             onBreakVariable = true;
                             setOnBreak(true);
                             return breaktime;
