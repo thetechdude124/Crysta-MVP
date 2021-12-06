@@ -53,7 +53,9 @@ router.get('/getData', (req, res) => {
   if (data_source === 'undefined') {
     var query = {username: username, date: query_date};
   } else if (data_source === 'pomodoro') {
-    var query = {username: username, date: query_date, source: data_source};
+    console.log(data_source);
+    var query = {username: username, source: data_source, date: query_date};
+    console.log(query);
   } else if (data_source === 'tasks') {
     var query = {username: username, source: data_source};
   }
@@ -90,17 +92,17 @@ router.delete('/deleteData', (req, res) => {
 router.post('/putData', (req, res) => {
   let data = new Data();
 
-  const { id, message } = req.body;
+  const { body } = req.body;
 
-  if ((!id && id !== 0) || !message) {
-    return res.json({
-      success: false,
-      error: 'INVALID INPUTS',
-    });
-  }
-  data.message = message;
-  data.id = id;
-  data.save((err) => {
+  // if ((!id && id !== 0) || !message) {
+  //   return res.json({
+  //     success: false,
+  //     error: 'INVALID INPUTS',
+  //   });
+  // }
+  // data.message = message;
+  // data.id = id;
+  data.save(body, (err) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });

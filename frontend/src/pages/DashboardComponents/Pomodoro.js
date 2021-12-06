@@ -24,7 +24,7 @@ function Pomodoro(props) {
 
     useEffect(() => {
         const getSessioncount = async() => {
-            axios.get('/api/getData?username=' + sendemail + 'source=pomodoro').then((response) => {
+            axios.get('/api/getData?username=' + sendemail + '&source=pomodoro').then((response) => {
                 var data = response.data;
                 const data_values = Object.values(data);
                 const data_array = data_values[1];
@@ -32,7 +32,13 @@ function Pomodoro(props) {
                 data_array.forEach(data_array => {
                     session_count.push(data_array.sessions_completed);
                 });
-                setSessionscompleted(session_count[1]);
+                console.log(session_count);
+                if (session_count[1] === undefined) {
+                    setSessionscompleted(0);
+                } else {
+                    setSessionscompleted(session_count[1]);
+                }
+                
             });
         }
         getSessioncount();
