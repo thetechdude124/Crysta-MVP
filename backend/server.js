@@ -3,7 +3,8 @@ const express = require('express');
 var cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const Data = require('./data');
+const {EnergySchema} = require('./data')
+const {PomodoroSchema} = require('./data')
 const path = require('path');
 
 const API_PORT = 3001;
@@ -51,27 +52,42 @@ router.get('/getData', (req, res) => {
   
   //Check to see if this request is being made to display energy scores or maintain pomodoro/tasks elements
   if (data_source === 'undefined') {
+
     var query = {username: username, date: query_date};
+    EnergySchema.find(query, (err, data) => {
+
+      if (err) return res.json({ success: false, error: err });
+      return res.json({ success: true, data: data });
+
+    });
+
   } else if (data_source === 'pomodoro') {
+    
     console.log(data_source);
     var query = {username: username, source: data_source, date: query_date};
     console.log(query);
+
+    PomodoroSchema.find(query, (err, data) => {
+      if (err) return res.json({ success: false, error: err });
+      return res.json({ success: true, data: data });
+
+    });
+
   } else if (data_source === 'tasks') {
+
     var query = {username: username, source: data_source};
+
   }
 
   //Query
-  Data.find(query, (err, data) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true, data: data });
-  });
+
 });
 
 // this is our update method
 // this method overwrites existing data in our database
 router.post('/updateData', (req, res) => {
   const { id, update } = req.body;
-  Data.findByIdAndUpdate(id, update, (err) => {
+  PomodoroSchema.findByIdAndUpdate(id, update, (err) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });
@@ -81,7 +97,7 @@ router.post('/updateData', (req, res) => {
 // this method removes existing data in our database
 router.delete('/deleteData', (req, res) => {
   const { id } = req.body;
-  Data.findByIdAndRemove(id, (err) => {
+  EnergySchema.findByIdAndRemove(id, (err) => {
     if (err) return res.send(err);
     return res.json({ success: true });
   });
@@ -90,10 +106,8 @@ router.delete('/deleteData', (req, res) => {
 // this is our create method
 // this method adds new data in our database
 router.post('/putData', (req, res) => {
-  let data = new Data();
 
   const { body } = req.body;
-
   // if ((!id && id !== 0) || !message) {
   //   return res.json({
   //     success: false,
@@ -102,7 +116,8 @@ router.post('/putData', (req, res) => {
   // }
   // data.message = message;
   // data.id = id;
-  data.save(body, (err) => {
+  console.log(body);
+  PomodoroSchema.save(body, (err) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });
