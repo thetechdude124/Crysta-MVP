@@ -9,7 +9,7 @@ import axios from 'axios';
 
 function Pomodoro(props) {
 
-    //Change this to a prop
+    //Get user email
     const sendemail = props.user_email;
 
     //Setting up variables for time, break, and states
@@ -20,8 +20,11 @@ function Pomodoro(props) {
     const [pomodorochime, setPomodorochime] = useState(new Audio(chime));
     const [sessionCounter, setSessioncounter] = useState(0);
     const [sessionscompleted, setSessionscompleted] = useState(0);
-    const [id, setID] = useState();
+    // const [DocumentID, setDocumentID] = useState();
 
+    // var sessionscompleted = 0
+
+    //Add setinterval to refresh session count for the value of timedisplay
     useEffect(() => {
         const getSessioncount = async() => {
             axios.get('/api/getData?username=' + sendemail + '&source=pomodoro').then((response) => {
@@ -33,10 +36,12 @@ function Pomodoro(props) {
                     session_count.push(data_array.sessions_completed);
                 });
                 console.log(session_count);
-                if (session_count[1] === undefined) {
+                console.log(session_count[0])
+                if (session_count[0] === undefined) {
                     setSessionscompleted(0);
                 } else {
-                    setSessionscompleted(session_count[1]);
+                    console.log(session_count[0])
+                    setSessionscompleted(session_count[0]);
                 }
                 
             });
@@ -71,7 +76,7 @@ function Pomodoro(props) {
             setBreaktime((prev) => prev + amount);
 
         } else if (destination === "focus") {
-            if (timedisplay <= 60 && amount < 0) {
+            if (timedisplay <= 600 && amount < 0) {
                 return;
             }
             setTimedisplay((prev) => prev + amount);
@@ -136,54 +141,79 @@ function Pomodoro(props) {
                 if (date > nextDate) {
                     setTimedisplay((prev) => {
                         if (prev <= 0 && !onBreakVariable) {
+
                             playSound();
                             breakNotification();
+
                             var timezone = (new Date()).getTimezoneOffset() * 60000;
                             var localtime = (new Date(Date.now() - timezone)).toISOString().slice(0, -1);
                             var query_date = localtime.slice(0,10);
+
+                            //Generate ID
+                            const ObjectId = (rnd = r16 => Math.floor(r16).toString(16)) =>
+                            rnd(Date.now()/1000) + ' '.repeat(16).replace(/./g, () => rnd(Math.random()*16));
+                            var id = ObjectId();
+
                             //Save session data by creating a new document for that day or updating an existing one
-                            if (sessionCounter === 0) {
-                                setSessioncounter(sessionCounter + 1);
+                            if (sessionscompleted === 0) {
+                                
+                                //Define data object
                                 const data = {
+                                    _id: id,
                                     username: sendemail,
                                     date: query_date,
-                                    sessions_completed: sessionCounter,
+                                    sessions_completed: sessionscompleted + 1,
                                     source: "pomodoro"
                                 };
-                                axios.post('/api/putData', data)
-                                    .then((res) => {
+                                
+                                //Increment sessionscompleted
+                                setSessionscompleted(sessionscompleted + 1);
+                                
+                                //Post data
+                                axios.post('/api/putData', data).then((res) => {
                                 console.log(res.data)
-                                }).catch(error => {
-                                console.log(error)
+                                }).catch(error => {console.log(error)
                                 });
-                            } else if (sessionCounter > 0){
-                                setSessioncounter(sessionCounter + 1);
-                                const data = {
+
+                            } else if (sessionscompleted > 0){
+
+                                //Define data object
+                                const update_data = {
                                     username: sendemail,
                                     date: query_date,
-                                    sessions_completed: sessionCounter,
+                                    sessions_completed: sessionscompleted + 1,
                                     source: "pomodoro"
                                 };
+
+                                //Increment sessionscompleted
+                                setSessionscompleted(sessionscompleted + 1);
+
+                                //Pull document with existing session data and retrieve data
                                 axios.get('/api/getData?username=' + sendemail + '&source=pomodoro').then((response) => {
-                                    var data = response.data;
-                                    const data_values = Object.values(data);
-                                    const data_array = data_values[1];
-                                    var id_array = []
-                                    data_array.forEach(data_array => {
-                                        id_array.push(data_array._id);
-                                    });
-                                    setID(id_array[1]);
-                                });
-                                axios.post('/api/updateData', {id, data})
+                                    //Set DocumentID variable
+                                    let DocumentID;
+
+                                    var res_data = response.data;
+                                    console.log(res_data)
+                                    const data_values = Object.values(res_data);
+                                    const data_object = data_values[1][0];
+                                    console.log(data_object._id);
+                                    DocumentID = data_object._id;
+                                    console.log(DocumentID);
+
+                                    axios.post('/api/updateData', {DocumentID, update_data})
                                     .then((res) => {
                                         console.log(res.data)
                                     }).catch(error => {
                                         console.log(error)
                                     });
+                                });
+
                             }
                             onBreakVariable = true;
                             setOnBreak(true);
                             return breaktime;
+
                         } else if (prev <= 0 && onBreakVariable) {
                             playSound();
                             sessionNotification();
@@ -222,7 +252,7 @@ function Pomodoro(props) {
             <div className = "icons-display" class = "flex items-center">
                 <div className = "plus-icon" class = "text-3xl mr-5 mt-2">
                     <IconContext.Provider value={{ color: '#ffffff' }}>
-                        <AiFillMinusSquare class = "hover:bg-green-200 rounded-md z-40" onClick = {() => timeChange(-60, "focus")}/>
+                        <AiFillMinusSquare class = "hover:bg-green-200 rounded-md z-40" onClick = {() => timeChange(-300, "focus")}/>
                     </IconContext.Provider>
                 </div>
                 <p className = "work-time" class = "font-bold text-white text-6xl">{convertTime(timedisplay)}</p>

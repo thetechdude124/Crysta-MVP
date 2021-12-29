@@ -29,6 +29,9 @@ function Dashboard() {
     const [unscaledchange, setUnscaledchange] = useState();
     const [graphdiv, setGraphdiv] = useState();
     const [pomodorodiv, setPomodorodiv] = useState();
+    const [TaskDiv, setTaskDiv] = useState();
+
+    //Tasks handling
 
     //Defining a function that returns the average of an array (necessary for procressing)
     const average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
@@ -93,7 +96,7 @@ function Dashboard() {
             if (isAuthenticated) {
                 const email = user.email;
                 var stringemail = email;
-                axios.get('/api/getData?username=' + email).then((response) =>{
+                axios.get('/api/getData?username=' + email + '&source=energy-tracker').then((response) =>{
                     var data = response.data;
                     const data_values = Object.values(data);
                     const data_array = data_values[1];
@@ -142,9 +145,11 @@ function Dashboard() {
                 console.log(stringemail);
                 setGraphdiv(<FunctionGraph sendemail = {stringemail} />);
                 setPomodorodiv(<Pomodoro user_email = {stringemail}/>)
+                setTaskDiv(<TaskWidget user_email = {stringemail}/>)
             } else {
                 setGraphdiv(<div class = "flex font-bold text-lg text-center justify-center items-center">Loading...</div>);
                 setPomodorodiv(<div class = "flex font-bold text-lg text-center justify-center items-center">Loading...</div>);
+                setTaskDiv(<div class = "flex font-bold text-lg text-center justify-center items-center">Loading...</div>)
             }
         }
         checkAuth();
@@ -241,7 +246,7 @@ function Dashboard() {
                 </div>
                 <div className = "pomodoro-tasks-container" class = "flex flex-col h-full w-3/12 m-auto ">
                     {pomodorodiv}
-                    <TaskWidget />
+                    {TaskDiv}
                 </div>
             </div>
 

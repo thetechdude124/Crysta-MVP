@@ -11,7 +11,7 @@ export default function FunctionGraph(props) {
         const getData = async() => {
             let labels = [];
             let div_scores = [];
-            await axios.get('/api/getData?username=' + props.sendemail).then((response) => {
+            await axios.get('/api/getData?username=' + props.sendemail + '&source=energy-tracker').then((response) => {
                 console.log(props.sendemail);
                 var data = response.data;
                 const data_values = Object.values(data);

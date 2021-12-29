@@ -3,8 +3,9 @@ const express = require('express');
 var cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const {EnergySchema} = require('./data')
-const {PomodoroSchema} = require('./data')
+const {EnergyData} = require('./data')
+const {PomodoroData} = require('./data')
+const {TaskData} = require('./data')
 const path = require('path');
 
 const API_PORT = 3001;
@@ -51,53 +52,88 @@ router.get('/getData', (req, res) => {
   var query_date = localtime.slice(0,10);
   
   //Check to see if this request is being made to display energy scores or maintain pomodoro/tasks elements
-  if (data_source === 'undefined') {
+  if (data_source === 'energy-tracker') {
 
-    var query = {username: username, date: query_date};
-    EnergySchema.find(query, (err, data) => {
+    //Define query
+    var query = {username: username, date: query_date, source: data_source};
 
+    //Regular query - fetch energy data
+    EnergyData.find(query, (err, data) => {
       if (err) return res.json({ success: false, error: err });
       return res.json({ success: true, data: data });
-
     });
 
   } else if (data_source === 'pomodoro') {
-    
-    console.log(data_source);
-    var query = {username: username, source: data_source, date: query_date};
-    console.log(query);
 
-    PomodoroSchema.find(query, (err, data) => {
+    //Use pomodoro source for the query and log both
+    var query = {username: username, date: query_date, source: data_source};
+    console.log(query);
+    console.log(data_source);
+
+    //Query
+    PomodoroData.find(query, (err, data) => {
       if (err) return res.json({ success: false, error: err });
       return res.json({ success: true, data: data });
-
     });
 
   } else if (data_source === 'tasks') {
 
-    var query = {username: username, source: data_source};
+    //Define query
+    var query = {username: username, date: query_date, source: data_source};
 
+    //Regular query - fetch energy data
+    TaskData.find(query, (err, data) => {
+      if (err) return res.json({ success: false, error: err });
+      return res.json({ success: true, data: data });
+    });
   }
-
-  //Query
-
 });
 
 // this is our update method
 // this method overwrites existing data in our database
 router.post('/updateData', (req, res) => {
-  const { id, update } = req.body;
-  PomodoroSchema.findByIdAndUpdate(id, update, (err) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
-  });
+
+  const { update_data } = req.body;
+  const source = update_data.source;
+  console.log(source);
+  console.log(update_data);
+
+  if (source === 'energy-tracker') {
+
+    //Energy tracker frontend is not updating data as of v.0.2
+    //Kept here for potential future purposes
+
+  } else if (source === 'pomodoro') {
+
+    const { DocumentID, update_data } = req.body;
+
+    PomodoroData.findByIdAndUpdate(DocumentID, update_data, (err) => {
+      if (err) return res.json({ success: false, error: err });
+      return res.json({ success: true });
+    });
+
+  } else if (source === 'tasks') {
+
+    const { DocumentID, update_data } = req.body;
+    console.log(DocumentID);
+    console.log(update_data);
+
+    TaskData.findByIdAndUpdate(DocumentID, update_data, (err) => {
+      if (err) return res.json({ success: false, error: err });
+      return res.json({ success: true });
+    });
+
+  }
+  
+
 });
 
 // this is our delete method
 // this method removes existing data in our database
 router.delete('/deleteData', (req, res) => {
   const { id } = req.body;
-  EnergySchema.findByIdAndRemove(id, (err) => {
+  console.log(id);
+  TaskData.findByIdAndRemove(id, (err) => {
     if (err) return res.send(err);
     return res.json({ success: true });
   });
@@ -107,20 +143,78 @@ router.delete('/deleteData', (req, res) => {
 // this method adds new data in our database
 router.post('/putData', (req, res) => {
 
-  const { body } = req.body;
-  // if ((!id && id !== 0) || !message) {
-  //   return res.json({
-  //     success: false,
-  //     error: 'INVALID INPUTS',
-  //   });
-  // }
-  // data.message = message;
-  // data.id = id;
-  console.log(body);
-  PomodoroSchema.save(body, (err) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
-  });
+  const { source } = req.body;
+  console.log(source);
+
+  //Display req.body
+  console.log('Req Body:');
+  console.log(req.body);
+
+  if (source === 'energy-tracker') {
+
+    //Energy tracker frontend is not posting data as of v.0.2
+    //Kept here for potential future purposes
+
+  } else if (source === 'pomodoro') {
+
+    //Get remaining variables from body
+    const { _id, username, date, sessions_completed } = req.body;
+
+    //Create an object out of the schema module -> basically making a brand new document filled with user data
+    //Required for posts but not for get, as the schema simply finds entries that correspond to itself
+    let data = new PomodoroData();
+
+    if ((!_id && _id !== 0) || !username || !date || !sessions_completed || !source) {
+      return res.json({
+        success: false,
+        error: 'INVALID POMODORO INPUTS',
+      });
+    }
+
+    data._id = _id;
+    data.username = username;
+    data.date = date;
+    data.sessions_completed = sessions_completed;
+    data.source = source;
+
+    //Save new object into database
+    data.save((err) => {
+      if (err) return res.json({ success: false, error: err });
+      console.log(err)
+      return res.json({ success: true });
+    });
+
+  } else if (source === 'tasks') {
+
+    //Get remaining variables from body
+    const { _id, username, desc, due_date, complete, source } = req.body;
+    
+    //Create an object out of the schema module -> basically making a brand new document filled with user data
+    //Required for posts but not for get, as the schema simply finds entries that correspond to itself
+    let data = new TaskData();
+
+    if ((!_id && _id !== 0) || !username || !desc || !due_date || !source) {
+      return res.json({
+        success: false,
+        error: 'INVALID TASK INPUTS',
+      });
+    }
+
+    data._id = _id;
+    data.username = username;
+    data.desc = desc;
+    data.due_date = due_date;
+    data.complete = complete;
+    data.source = source;
+
+    //Save new object into database
+    data.save((err) => {
+      if (err) return res.json({ success: false, error: err });
+      console.log(err)
+      return res.json({ success: true });
+    });
+  }
+
 });
 
 // append /api for our http requests
