@@ -94,12 +94,9 @@ function Dashboard() {
                 const email = user.email;
                 var stringemail = email;
                 axios.get('/api/getData?username=' + email).then((response) =>{
-                    console.log(email);
                     var data = response.data;
                     const data_values = Object.values(data);
                     const data_array = data_values[1];
-                    console.log(data_values);
-                    console.log(data_array);
                     var task_switches = [];
                     var labels = [];
                     var div_scores = [];
