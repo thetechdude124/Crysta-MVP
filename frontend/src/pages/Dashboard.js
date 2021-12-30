@@ -233,7 +233,7 @@ function Dashboard() {
                         </div>
                     </div>
                     <div className = "energy-level-heading" class = "flex bg-gray-200 w-11/12 rounded-3xl mt-3 justify-center ">
-                        <p class = "text-black mt-3 mb-3 ml-2 mr-2 text-xs">These are the insights we found - the more you use Crysta, the more accurate they get!</p> 
+                        <p class = "text-black mt-3 mb-3 ml-2 mr-2 text-xs">We'd love your feedback! <a href="https://forms.gle/wvdWMDpoVSbqK2cAA" target = "_blank" class="font-semibold underline text-blue-400 hover:text-green-400 transition duration-250 ease-linear">How are you liking Crysta?</a></p> 
                     </div>
                 </div>
                 <div className = "energy-menu" class = "flex bg-gray-50 shadow-md rounded-3xl h-full w-6/12 m-auto">
