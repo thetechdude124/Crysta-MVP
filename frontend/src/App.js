@@ -15,7 +15,7 @@ function App() {
 
   if (isAuthenticated) {
     const usernameObject = {
-        username: user.name
+        username: user.email
     };
     axios.post('http://127.0.0.1:5000/user', usernameObject)
         .then((res) => {
