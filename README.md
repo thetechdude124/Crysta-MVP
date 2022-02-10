@@ -43,3 +43,5 @@ There are three branches:
 **This project was AWESOME - from designing the figma mockups to coding for days on end, I wouldn't have traded this for anything else.**
 
 Thanks for reading! I hope this will be useful for a LOT of people (and advancing research).
+
+![Crysta_Logo](Crysta_Logo.jpg)
