@@ -1,6 +1,8 @@
 # 🤖 Crysta - Strive for Excellence.
 Hey there! This is the code for a company I was building  for the last six months :D 
 
+![V.0.2 SCREENSHOT](V.0.2 SCREENSHOT.png)
+
 # 🤔 About...
 
 🎯**The aim of Crysta was to help decrease student procrastination by tracking their energy levels.** Basically, Crysta would track various different metrics throughout the day – things like the number of distracting sites visited, the number of task switches, and the amount of time spent per task – and then, using an **algorithm** (the data_handler.py file under the flask branch), compile all these metrics into a single number known as an **energy score**. 
