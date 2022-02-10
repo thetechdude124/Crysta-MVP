@@ -15,7 +15,7 @@ const router = express.Router();
 
 // this is our MongoDB database
 const dbRoute =
-    'mongodb+srv://crysta:3.14159265e@crysta-database.qrvsc.mongodb.net/crysta?retryWrites=true&w=majority';
+    'YOUR_MONGODB_URL_HERE';
 
 // connects our back end code with the database
 mongoose.connect(dbRoute, { useNewUrlParser: true });
