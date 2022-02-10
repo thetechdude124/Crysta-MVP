@@ -1,7 +1,7 @@
 # 🤖 Crysta - Strive for Excellence.
 Hey there! This is the code for a company I was building  for the last six months :D 
 
-![V.0.2 SCREENSHOT](V.0.2 SCREENSHOT.png)
+![V.0.2_SCREENSHOT](V.0.2_SCREENSHOT.png)
 
 # 🤔 About...
 
