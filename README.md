@@ -1,2 +1,2 @@
-# Crysta_MVP
-A repo for hosting Crysta's MVP code.
+# Main/Production
+This is the production branch - not the default branch. (check README.md under staging)
