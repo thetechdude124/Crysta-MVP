@@ -6,7 +6,7 @@ import pymongo
 from pymongo import MongoClient
 import time
 
-cluster = MongoClient("mongodb+srv://crysta:3.14159265e@crysta-database.qrvsc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", tlsCAFile=certifi.where())
+cluster = MongoClient("YOUR_URL_HERE", tlsCAFile=certifi.where())
 db = cluster["crysta"]
 collection = db["task-switches"]
 
