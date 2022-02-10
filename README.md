@@ -1,2 +1,2 @@
 # 🤖Crysta - Strive for Excellence.
-A repo for hosting Crysta's MVP code.
+Hey there! This is the code for a company I built.
