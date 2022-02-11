@@ -13,7 +13,7 @@ Hey there! This is the code for a company I was building  for the last six month
 
 You can find out more (**and use Crysta yourself**) at our website: https://tinyurl.com/Crysta-MVP
 
-While the company itself didn't take off, I learned a LOT through the experience. Here's a quick article with all the insights, lessons, and frameworks I've aquired through thiis venture - and, specific action items to avoid future mistakes. https://aditya-dewan124.medium.com/my-first-company-failed-heres-what-i-learned-and-what-you-should-avoid-5174ee78481a
+While the company itself didn't take off, I learned a LOT through the experience. Here's a quick article with all the insights, lessons, and frameworks I've aquired through this venture - and, specific action items to avoid future mistakes. https://aditya-dewan124.medium.com/my-first-company-failed-heres-what-i-learned-and-what-you-should-avoid-5174ee78481a
 
 Here's a quick, 3min video talking about this!
 https://www.loom.com/share/8003c48133cb47aa9fc4b43e359eb036
